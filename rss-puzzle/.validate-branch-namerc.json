@@ -1,0 +1,4 @@
+{
+  "pattern": "^fix|feat|refactor|chore|docs[\\-a-zA-z]+$",
+  "errorMsg": "The branch name failed validation"
+}
