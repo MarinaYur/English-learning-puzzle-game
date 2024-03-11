@@ -1,29 +1,38 @@
-import { resolve, join } from 'path'; // Импортируем модуль "path" для работы с путями файлов
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path'); // Импортируем модуль "path" для работы с путями файлов
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-export const entry = './src/index.ts';
-export const output = {
-  filename: 'bundle.js', // Имя выходного файла сборки
-  path: resolve(__dirname, 'dist'), // Путь для выходного файла сборки
-};
-export const module = {
-  rules: [
-    {
-      test: /\.css$/, // Регулярное выражение для обработки файлов с расширением .css
-      use: ['style-loader', 'css-loader'], // Загрузчики, используемые для обработки CSS-файлов
-    },
-    { test: /\.ts$/i, use: 'ts-loader' },
-  ],
-};
-export const plugins = [
-  new HtmlWebpackPlugin({
-    template: './src/index.html',
-  }),
-];
-export const devServer = {
-  static: {
-    directory: join(__dirname, 'dist'), // Каталог для статики
+module.exports = {
+  entry: './src/index.ts', // Точка входа для сборки проекта
+
+  output: {
+    filename: 'bundle.js', // Имя выходного файла сборки
+    path: path.resolve(__dirname, 'dist'), // Путь для выходного файла сборки
   },
-  open: true, // Автоматически открывать браузер
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/, // Регулярное выражение для обработки файлов с расширением .css
+        use: ['style-loader', 'css-loader'], // Загрузчики, используемые для обработки CSS-файлов
+      },
+      { test: /\.ts$/i, use: 'ts-loader' },
+    ],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+    }),
+  ],
+
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'), // Каталог для статики
+    },
+    open: true, // Автоматически открывать браузер
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  mode: 'development', // Режим сборки
 };
-export const mode = 'development';
