@@ -7,10 +7,10 @@ export default class LoginPage extends Page {
   createContent() {
     const loginContainer = new Tag('div', 'login').createElem();
     this.container.append(loginContainer);
-    const loginContent = new Tag('div', 'login-content').createElem();
-    loginContainer.append(loginContent);
+    const loginForm = new Tag('form', 'login-form').createElem();
+    loginContainer.append(loginForm);
     const pageTitle = new Tag('h1', 'page-title', 'Login form').createElem();
-    loginContent.append(pageTitle);
+    loginForm.append(pageTitle);
     const firstName = new Tag(
       'input',
       'login-input first-name',
@@ -20,7 +20,9 @@ export default class LoginPage extends Page {
       'text',
       'fname'
     ).createElem() as HTMLInputElement;
-    loginContent.append(firstName);
+    loginForm.append(firstName);
+    const validateMsgFName = new Tag('div', '1name-error').createElem();
+    loginForm.append(validateMsgFName);
     const lastName = new Tag(
       'input',
       'login-input last-name',
@@ -29,18 +31,20 @@ export default class LoginPage extends Page {
       true,
       'text'
     ).createElem();
-    loginContent.append(lastName);
+    loginForm.append(lastName);
+    const validateMsgLName = new Tag('div', 'lname-error').createElem();
+    loginForm.append(validateMsgLName);
     const loginButton = new Tag(
       'button',
       'btn login-btn',
       'Login',
       '',
       false,
-      '',
+      'submit',
       '',
       true
     ).createElem();
-    loginContent.append(loginButton);
+    loginForm.append(loginButton);
   }
 
   render() {

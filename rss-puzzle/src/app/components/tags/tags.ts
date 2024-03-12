@@ -54,7 +54,7 @@ export default class Tag {
       element.setAttribute('id', this.id);
     }
     if (this.type && this.type !== '') {
-      element.setAttribute('type', 'text');
+      element.setAttribute('type', this.type);
     }
     return element;
   }
