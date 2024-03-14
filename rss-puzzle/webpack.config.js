@@ -6,33 +6,33 @@ module.exports = {
 
   output: {
     filename: 'bundle.js', // Имя выходного файла сборки
-    path: path.resolve(__dirname, 'dist'), // Путь для выходного файла сборки
+    path: path.resolve(__dirname, 'dist') // Путь для выходного файла сборки
   },
 
   module: {
     rules: [
       {
         test: /\.css$/, // Регулярное выражение для обработки файлов с расширением .css
-        use: ['style-loader', 'css-loader'], // Загрузчики, используемые для обработки CSS-файлов
+        use: ['style-loader', 'css-loader'] // Загрузчики, используемые для обработки CSS-файлов
       },
-      { test: /\.ts$/i, use: 'ts-loader' },
-    ],
+      { test: /\.ts$/i, use: 'ts-loader' }
+    ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
+      template: './src/index.html'
+    })
   ],
 
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'), // Каталог для статики
+      directory: path.join(__dirname, 'dist') // Каталог для статики
     },
-    open: true, // Автоматически открывать браузер
+    open: true // Автоматически открывать браузер
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
-  mode: 'development', // Режим сборки
+  mode: 'development' // Режим сборки
 };

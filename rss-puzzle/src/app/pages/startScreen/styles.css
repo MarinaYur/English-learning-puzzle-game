@@ -1,0 +1,35 @@
+.start-container {
+  margin: 0 auto;
+  width: 1440px;
+  max-width: 100%;
+  height: 100vh;
+  background-image: url('../../../assets/puzzle-background-start.avif');
+  /* background-size: 100%; */
+}
+
+.opacity {
+  width: 1440px;
+  max-width: 100%;
+  height: 100vh;
+  background-color: rgb(171 208 199 / 70%);
+}
+
+.start-screen-title {
+  padding-top: 169px;
+}
+
+.start-screen-title,
+.start-description {
+  font-size: 89px;
+  color: brown;
+  text-align: center;
+  margin: 0 auto;
+  font-family: 'Cormorant', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.start-description {
+  font-size: 34px;
+}

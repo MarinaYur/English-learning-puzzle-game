@@ -7,7 +7,7 @@ import './style.css';
 
 export default class LoginPage extends Page {
   createContent() {
-    const loginContainer = new Tag('div', 'login').createElem();
+    const loginContainer = new Tag('div', 'login', '', '', false, '', 'loginPage').createElem();
     this.container.append(loginContainer);
     const loginForm = new Tag('form', 'login-form', '', '', false, '', 'form', '/', 'POST').createElem();
     loginContainer.append(loginForm);
