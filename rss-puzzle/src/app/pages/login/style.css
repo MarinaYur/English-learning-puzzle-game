@@ -32,6 +32,12 @@ body {
 .login-btn {
   margin: 0 auto;
   font-size: 1.5rem;
+  background-color: rgba(194, 193, 162, 0.39);
+  cursor: pointer;
+}
+
+.login-btn:enabled {
+  background-color: #8bc34a;
 }
 
 .fname-error,

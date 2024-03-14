@@ -1,9 +1,16 @@
-// import { Tag } from './tags/tags';
+const saveUserCredentials = () => {
+  const loginForm = document.getElementById('form');
+  loginForm?.addEventListener('submit', (e: Event) => {
+    e.preventDefault();
+    const userFirstName: HTMLInputElement | null = loginForm.querySelector('[name = "firstName"]');
+    const userSurName: HTMLInputElement | null = document.querySelector('.last-name');
+    const user = {
+      firstName: userFirstName?.value,
+      surName: userSurName?.value
+    };
+    const userStr: string = JSON.stringify(user);
+    localStorage.setItem('rss-puzle', userStr);
+  });
+};
 
-// interface Props {
-//   txt: string;
-//   onClick?: () => void;
-// }
-
-// export const Button = ({ txt, onClick}: Props) =>
-//   new Tag ('button', `btn`, txt, onClick?);
+export default saveUserCredentials;

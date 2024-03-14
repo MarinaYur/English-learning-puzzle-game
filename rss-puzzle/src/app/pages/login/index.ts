@@ -1,6 +1,7 @@
 import Page from '../../components/core/templates/page';
 import Tag from '../../components/tags/tags';
 import checkInput from '../../components/validation';
+import saveUserCredentials from '../../components/buttons';
 
 import './style.css';
 
@@ -8,7 +9,7 @@ export default class LoginPage extends Page {
   createContent() {
     const loginContainer = new Tag('div', 'login').createElem();
     this.container.append(loginContainer);
-    const loginForm = new Tag('form', 'login-form').createElem();
+    const loginForm = new Tag('form', 'login-form', '', '', false, '', 'form', '/', 'POST').createElem();
     loginContainer.append(loginForm);
     const pageTitle = new Tag('h1', 'page-title', 'Login form').createElem();
     loginForm.append(pageTitle);
@@ -19,19 +20,46 @@ export default class LoginPage extends Page {
       'First Name',
       true,
       'text',
-      'fname'
+      'fname',
+      '',
+      '',
+      'firstName'
     ).createElem() as HTMLInputElement;
     loginForm.append(firstName);
     const validateMsgFName = new Tag('div', 'fname-error').createElem();
     loginForm.append(validateMsgFName);
-    const lastName = new Tag('input', 'login-input last-name', null, 'Surname', true, 'text').createElem();
+    const lastName = new Tag(
+      'input',
+      'login-input last-name',
+      null,
+      'Surname',
+      true,
+      'text',
+      'lname',
+      '',
+      '',
+      'surName'
+    ).createElem();
     loginForm.append(lastName);
     const validateMsgLName = new Tag('div', 'lname-error').createElem();
     loginForm.append(validateMsgLName);
-    const loginButton = new Tag('button', 'btn login-btn', 'Login', '', true, 'submit', '', true).createElem();
+    const loginButton = new Tag(
+      'button',
+      'btn login-btn',
+      'Login',
+      '',
+      false,
+      'submit',
+      '',
+      '',
+      '',
+      '',
+      true
+    ).createElem();
     loginForm.append(loginButton);
     const inputs = [firstName as HTMLInputElement, lastName as HTMLInputElement];
     const validResult: boolean[] = [false, false];
+
     inputs.forEach((elem, index) => {
       const input = elem;
       input.addEventListener('input', () => {
@@ -46,24 +74,21 @@ export default class LoginPage extends Page {
           input.style.border = '2px solid red';
           validateMSG.style.display = 'block';
           validResult[index] = false;
-          console.log(validResult);
         }
         if (valState) {
           input.style.border = '2px solid black';
           validateMSG.style.display = 'none';
           validResult[index] = true;
-          console.log(validResult);
         }
         if (input.value === '') {
           validateMSG.style.display = 'none';
           input.style.border = '2px solid black';
           validResult[index] = false;
-          console.log(validResult);
         }
-        console.log('validResult', validResult);
         this.activeSubmitBtn(validResult, loginButton as HTMLButtonElement);
       });
     });
+    saveUserCredentials();
   }
 
   activeSubmitBtn(res: boolean[], btn: HTMLButtonElement): void {

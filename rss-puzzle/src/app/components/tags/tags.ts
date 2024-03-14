@@ -13,6 +13,12 @@ export default class Tag {
 
   id?: string;
 
+  action?: string;
+
+  method?: string;
+
+  name?: string;
+
   disabled?: boolean;
 
   constructor(
@@ -23,6 +29,9 @@ export default class Tag {
     required?: boolean,
     type?: string,
     id?: string | undefined,
+    action?: string,
+    method?: string,
+    name?: string,
     disabled?: boolean
   ) {
     this.tag = tag;
@@ -32,6 +41,9 @@ export default class Tag {
     this.required = required;
     this.type = type;
     this.id = id;
+    this.action = action;
+    this.method = method;
+    this.name = name;
     this.disabled = disabled;
   }
 
@@ -55,6 +67,15 @@ export default class Tag {
     }
     if (this.type && this.type !== '') {
       element.setAttribute('type', this.type);
+    }
+    if (this.action && this.action !== '') {
+      element.setAttribute('action', this.action);
+    }
+    if (this.method && this.method !== '') {
+      element.setAttribute('method', this.method);
+    }
+    if (this.name && this.name !== '') {
+      element.setAttribute('name', this.name);
     }
     return element;
   }
