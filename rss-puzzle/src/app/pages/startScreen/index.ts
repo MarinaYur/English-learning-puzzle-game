@@ -9,6 +9,9 @@ export default class StartScreen extends Page {
     this.container.append(startContainer);
     const backgroundOpacity = new Tag('div', 'opacity').createElem();
     startContainer.append(backgroundOpacity);
+    const greeting = new Tag('h2', 'start-screen-greeting').createElem();
+    backgroundOpacity.append(greeting);
+    greeting.innerHTML = this.renderGreeting();
     const pageTitle = new Tag('h1', 'start-screen-title', 'Puzzle Game').createElem();
     backgroundOpacity.append(pageTitle);
     const descriptionContent = `To assemble 10 rows of the puzzle. 1 row corresponds to 1 sentence
@@ -17,6 +20,13 @@ export default class StartScreen extends Page {
      picture is revealed.`;
     const description = new Tag('div', 'start-description', `${descriptionContent}`).createElem();
     backgroundOpacity.append(description);
+    this.renderGreeting();
+  }
+
+  renderGreeting() {
+    const user = JSON.parse(localStorage.getItem('rss-puzle') as string);
+    const greeting:string = `Welcome <span>${user.firstName} ${user.surName}</span> to the`;
+    return greeting;
   }
 
   render() {

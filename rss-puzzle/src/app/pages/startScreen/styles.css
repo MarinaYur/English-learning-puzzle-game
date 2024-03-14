@@ -15,7 +15,6 @@
 }
 
 .start-screen-title {
-  padding-top: 169px;
 }
 
 .start-screen-title,
@@ -32,4 +31,20 @@
 
 .start-description {
   font-size: 34px;
+}
+
+.start-screen-greeting {
+  padding-top: 95px;
+  font-size: 49px;
+  color: brown;
+  text-align: center;
+  margin: 0 auto;
+  font-family: 'Cormorant', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.start-screen-greeting span {
+  color: red;
 }
