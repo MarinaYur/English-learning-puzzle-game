@@ -3,7 +3,7 @@ body {
 }
 
 .btn {
-  width: 45%;
   height: 50px;
   border-radius: 30px;
+  cursor: pointer;
 }

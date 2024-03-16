@@ -1,3 +1,4 @@
+import createStartBtn from '../../components/buttons';
 import Page from '../../components/core/templates/page';
 import logOut from '../../components/logout';
 import Tag from '../../components/tags/tags';
@@ -22,6 +23,7 @@ export default class StartScreen extends Page {
      picture is revealed.`;
     const description = new Tag('div', 'start-description', `${descriptionContent}`).createElem();
     backgroundOpacity.append(description);
+    createStartBtn(backgroundOpacity);
   }
 
   renderGreeting() {

@@ -33,6 +33,7 @@ body {
   margin: 0 auto;
   font-size: 1.5rem;
   background-color: rgba(194, 193, 162, 0.39);
+  width: 45%;
   cursor: pointer;
 }
 
