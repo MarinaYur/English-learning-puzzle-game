@@ -1,4 +1,5 @@
 import Page from '../../components/core/templates/page';
+import logOut from '../../components/logout';
 import Tag from '../../components/tags/tags';
 
 import './styles.css';
@@ -9,6 +10,7 @@ export default class StartScreen extends Page {
     this.container.append(startContainer);
     const backgroundOpacity = new Tag('div', 'opacity').createElem();
     startContainer.append(backgroundOpacity);
+    backgroundOpacity.append(logOut());
     const greeting = new Tag('h2', 'start-screen-greeting').createElem();
     backgroundOpacity.append(greeting);
     greeting.innerHTML = this.renderGreeting();
@@ -20,12 +22,11 @@ export default class StartScreen extends Page {
      picture is revealed.`;
     const description = new Tag('div', 'start-description', `${descriptionContent}`).createElem();
     backgroundOpacity.append(description);
-    this.renderGreeting();
   }
 
   renderGreeting() {
     const user = JSON.parse(localStorage.getItem('rss-puzle') as string);
-    const greeting:string = `Welcome <span>${user.firstName} ${user.surName}</span> to the`;
+    const greeting: string = `Welcome <span>${user.firstName} ${user.surName}</span> to the`;
     return greeting;
   }
 

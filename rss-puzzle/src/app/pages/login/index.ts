@@ -1,7 +1,6 @@
 import Page from '../../components/core/templates/page';
 import Tag from '../../components/tags/tags';
 import checkInput from '../../components/validation';
-import saveUserCredentials from '../../components/buttons';
 
 import './style.css';
 
@@ -88,7 +87,6 @@ export default class LoginPage extends Page {
         this.activeSubmitBtn(validResult, loginButton as HTMLButtonElement);
       });
     });
-    saveUserCredentials();
   }
 
   activeSubmitBtn(res: boolean[], btn: HTMLButtonElement): void {
