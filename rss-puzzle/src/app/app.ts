@@ -29,7 +29,7 @@ export default class App {
         surName: userSurName?.value
       };
       const userStr: string = JSON.stringify(user);
-      localStorage.setItem('rss-puzle', userStr);
+      localStorage.setItem('rss-puzzle', userStr);
       App.renderNewPage('StartScreen');
     });
   };
@@ -62,7 +62,7 @@ export default class App {
 
   renderStartPage() {
     let startPage: string = '';
-    if (localStorage.length !== 0) {
+    if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null) {
       startPage = 'StartScreen';
     } else {
       startPage = 'LoginPage';
