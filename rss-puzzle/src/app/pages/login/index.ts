@@ -15,7 +15,7 @@ export default class LoginPage extends Page {
     loginForm.append(pageTitle);
     const formLineName = new Tag('div', 'form-line').createElem();
     loginForm.append(formLineName);
-    const labelName = new Tag('label', 'label-name', 'First name').createElem();
+    const labelName = new Tag('label', 'label-name').createElem();
     formLineName.append(labelName);
     const name = new Tag(
       'input',
@@ -35,11 +35,10 @@ export default class LoginPage extends Page {
     const formLinePass = new Tag('div', 'form-line').createElem();
     loginForm.append(formLinePass);
 
-    const labelPass = new Tag('label', 'label-pass', 'Surname').createElem();
-    formLinePass.append(labelPass);
+    const labelSurname = new Tag('label', 'label-surname').createElem();
+    formLinePass.append(labelSurname);
 
-
-    const password = new Tag(
+    const surname = new Tag(
       'input',
       'login-input surname',
       null,
@@ -51,9 +50,9 @@ export default class LoginPage extends Page {
       '',
       'pass'
     ).createElem();
-    formLinePass.append(password);
-    const validateMsgPass = new Tag('div', 'pass-error').createElem();
-    loginForm.append(validateMsgPass);
+    formLinePass.append(surname);
+    const validateMsgSurname = new Tag('div', 'surname-error').createElem();
+    loginForm.append(validateMsgSurname);
     const loginButton = new Tag(
       'button',
       'btn login-btn',
@@ -68,13 +67,13 @@ export default class LoginPage extends Page {
       true
     ).createElem();
     loginForm.append(loginButton);
-    const inputs = [name as HTMLInputElement, password as HTMLInputElement];
+    const inputs = [name as HTMLInputElement, surname as HTMLInputElement];
     const validResult: boolean[] = [false, false];
     inputs.forEach((elem, index) => {
       const input = elem;
-      input.addEventListener('input', (e) => {
+      input.addEventListener('input', () => {
         const valState = checkInput(index, input.value);
-        const validateMSG = index === 0 ? validateMsgName : validateMsgPass;
+        const validateMSG = index === 0 ? validateMsgName : validateMsgSurname;
         if (!valState) {
           input.style.border = '2px solid red';
           validateMSG.style.display = 'block';

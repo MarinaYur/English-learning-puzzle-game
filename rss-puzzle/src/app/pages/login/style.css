@@ -32,7 +32,6 @@ body {
   font-weight: 500;
 }
 
-
 .login-input {
   padding: 10px;
   border-radius: 10px;
@@ -54,7 +53,7 @@ body {
 }
 
 .name-error,
-.pass-error {
+.surname-error {
   position: absolute;
   margin-top: 5px;
   font-size: 18px;
@@ -64,9 +63,9 @@ body {
   border-radius: 10px;
   border: 1px solid #ef9a9a;
   display: none;
-  margin-top: 120px;
+  margin: 120px 0px 0px 103px;
 }
 
-.pass-error {
+.surname-error {
   margin-top: 209px;
 }
