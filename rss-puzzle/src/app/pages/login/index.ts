@@ -10,38 +10,48 @@ export default class LoginPage extends Page {
     this.container.append(loginContainer);
     const loginForm = new Tag('form', 'login-form', '', '', false, '', 'form', '/', 'POST').createElem();
     loginContainer.append(loginForm);
-    const pageTitle = new Tag('h1', 'page-title', 'Login form').createElem();
+    const pageTitle = new Tag('h1', 'page-title', 'Login').createElem();
     loginForm.append(pageTitle);
-    const firstName = new Tag(
+    const formLineName = new Tag('div', 'form-line').createElem();
+    loginForm.append(formLineName);
+    const labelName = new Tag('label', 'label-name').createElem();
+    formLineName.append(labelName);
+    const name = new Tag(
       'input',
-      'login-input first-name',
+      'login-input name',
       null,
-      'First Name',
+      'First name',
       true,
       'text',
-      'fname',
+      'name',
       '',
       '',
-      'firstName'
+      'name'
     ).createElem() as HTMLInputElement;
-    loginForm.append(firstName);
-    const validateMsgFName = new Tag('div', 'fname-error').createElem();
-    loginForm.append(validateMsgFName);
-    const lastName = new Tag(
+    formLineName.append(name);
+    const validateMsgName = new Tag('div', 'name-error').createElem();
+    loginForm.append(validateMsgName);
+    const formLinePass = new Tag('div', 'form-line').createElem();
+    loginForm.append(formLinePass);
+
+    const labelSurname = new Tag('label', 'label-surname').createElem();
+    formLinePass.append(labelSurname);
+
+    const surname = new Tag(
       'input',
-      'login-input last-name',
+      'login-input surname',
       null,
       'Surname',
       true,
       'text',
-      'lname',
+      'pass',
       '',
       '',
-      'surName'
+      'pass'
     ).createElem();
-    loginForm.append(lastName);
-    const validateMsgLName = new Tag('div', 'lname-error').createElem();
-    loginForm.append(validateMsgLName);
+    formLinePass.append(surname);
+    const validateMsgSurname = new Tag('div', 'surname-error').createElem();
+    loginForm.append(validateMsgSurname);
     const loginButton = new Tag(
       'button',
       'btn login-btn',
@@ -56,20 +66,14 @@ export default class LoginPage extends Page {
       true
     ).createElem();
     loginForm.append(loginButton);
-    const inputs = [firstName as HTMLInputElement, lastName as HTMLInputElement];
+    const inputs = [name as HTMLInputElement, surname as HTMLInputElement];
     const validResult: boolean[] = [false, false];
-
     inputs.forEach((elem, index) => {
       const input = elem;
       input.addEventListener('input', () => {
-        const valState = checkInput(input as HTMLInputElement);
-        const validateMSG = index === 0 ? validateMsgFName : validateMsgLName;
-
+        const valState = checkInput(index, input.value);
+        const validateMSG = index === 0 ? validateMsgName : validateMsgSurname;
         if (!valState) {
-          const lengthErrorMsg: string = index === 0 ? '3 - 40' : '4 - 40';
-          const errorMsg = `First letter in uppercase, only English alphabet
-        letters and hyphen ('-') accept, length of ${lengthErrorMsg} characters`;
-          validateMSG.innerHTML = errorMsg;
           input.style.border = '2px solid red';
           validateMSG.style.display = 'block';
           validResult[index] = false;

@@ -22,11 +22,22 @@ body {
   margin: 0 auto;
 }
 
+.form-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-line label {
+  font-size: x-large;
+  font-weight: 500;
+}
+
 .login-input {
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 50px;
   outline: none;
+  width: 70%;
 }
 
 .login-btn {
@@ -41,8 +52,8 @@ body {
   background-color: #8bc34a;
 }
 
-.fname-error,
-.lname-error {
+.name-error,
+.surname-error {
   position: absolute;
   margin-top: 5px;
   font-size: 18px;
@@ -52,9 +63,9 @@ body {
   border-radius: 10px;
   border: 1px solid #ef9a9a;
   display: none;
-  margin-top: 120px;
+  margin: 120px 0px 0px 103px;
 }
 
-.lname-error {
+.surname-error {
   margin-top: 209px;
 }
