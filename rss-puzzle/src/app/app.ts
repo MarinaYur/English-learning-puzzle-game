@@ -22,8 +22,8 @@ export default class App {
 
     loginForm?.addEventListener('submit', (e: Event) => {
       e.preventDefault();
-      const userFirstName: HTMLInputElement | null = loginForm.querySelector('[name = "firstName"]');
-      const userSurName: HTMLInputElement | null = document.querySelector('.last-name');
+      const userFirstName: HTMLInputElement | null = loginForm.querySelector('[name = "name"]');
+      const userSurName: HTMLInputElement | null = document.querySelector('.surname');
       const user = {
         firstName: userFirstName?.value,
         surName: userSurName?.value
