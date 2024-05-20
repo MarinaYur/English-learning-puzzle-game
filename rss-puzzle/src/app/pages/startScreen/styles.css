@@ -13,7 +13,7 @@
 
 .start-screen-title,
 .start-description {
-  font-size: 89px;
+  font-size: 85px;
   color: brown;
   text-align: center;
   margin: 0 auto;
@@ -21,16 +21,16 @@
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  padding: 0 35px 0 35px;
+  padding: 0 35px 56px 35px;
 }
 
 .start-description {
-  font-size: 34px;
+  font-size: 28px;
 }
 
 .start-screen-greeting {
   padding-top: 95px;
-  font-size: 49px;
+  font-size: 47px;
   color: brown;
   text-align: center;
   margin: 0 auto;
@@ -41,10 +41,19 @@
 }
 
 .start-screen-greeting span {
-  color: red;
+  font-weight: 400;
+  color: #673ab7;
 }
 
 .log-out {
+  font-size: 25px;
+  font-weight: 600;
+  color: darkslategray;
+  padding-right: 11px;
+  cursor: pointer;
+}
+
+.out-field {
   display: flex;
   justify-content: right;
   font-size: 25px;
@@ -55,7 +64,19 @@
   cursor: pointer;
 }
 
-.log-out:hover {
+.log-out, .out:hover {
   color: rgb(8, 152, 123);
   text-decoration: underline;
+}
+
+.out-pic {
+  height: 25px;
+  width: 25px;
+  background-image: url(/src/assets/log-out.png);
+  background-size: contain;
+}
+
+.out {
+  display: flex;
+  cursor: pointer;
 }

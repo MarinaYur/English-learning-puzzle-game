@@ -28,7 +28,7 @@ export default class StartScreen extends Page {
 
   renderGreeting() {
     const user = JSON.parse(localStorage.getItem('rss-puzzle') as string);
-    const greeting: string = `Welcome <span>${user.firstName} ${user.surName}</span> to the`;
+    const greeting: string = `Dear <span>${user.firstName} ${user.surName}</span>, welcome to the`;
     return greeting;
   }
 

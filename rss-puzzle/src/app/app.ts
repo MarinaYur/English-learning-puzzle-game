@@ -10,7 +10,7 @@ export default class App {
   private initialPage: LoginPage;
 
   static logOutBtnHandler = () => {
-    const logOutBtn = document.querySelector('.log-out');
+    const logOutBtn = document.querySelector('.out');
     logOutBtn?.addEventListener('click', () => {
       localStorage.clear();
       App.renderNewPage('LoginPage');
