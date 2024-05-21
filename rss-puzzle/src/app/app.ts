@@ -1,5 +1,6 @@
 import Page from './components/core/templates/page';
 import LoginPage from './pages/login/index';
+import MainPage from './pages/main/index';
 import StartScreen from './pages/startScreen/index';
 
 export default class App {
@@ -43,8 +44,11 @@ export default class App {
 
     if (pageId === 'LoginPage') {
       page = new LoginPage(pageId);
-    } else if (pageId === 'StartScreen') {
+    }
+    if (pageId === 'StartScreen') {
       page = new StartScreen(pageId);
+    } else if (pageId === 'MainPage') {
+      page = new MainPage(pageId);
     }
 
     if (page) {
