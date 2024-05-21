@@ -57,8 +57,7 @@
 .puzzle-word {
   text-align: center;
   line-height: 0px;
-  font-size: 25px;
-}
+  font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);}
 
 .sentence {
   /* border: 0.1px solid black; */
