@@ -12,12 +12,17 @@ export const createPuzzlesPieces = (parent: HTMLElement, text: string, length: n
 
   puzzlePeace?.addEventListener('click', () => {
     const sentences = document.querySelectorAll('.sentence');
+    console.log(puzzlePeace.parentElement);
+    if (puzzlePeace.parentElement?.classList.contains('data-block')) {
     sentences.forEach((sentence, index) => {
-      const sentenceWidth = (sentence as HTMLElement).offsetWidth;
       if (index + 1 === id) {
+        // puzzlePeace.className = 'puzzle-peace-result';
         sentence.append(puzzlePeace);
       }
     });
+  } else {
+    parent.append(puzzlePeace);
+  }
   });
 };
 

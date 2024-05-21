@@ -4,6 +4,9 @@
 }
 
 .main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: blueviolet;
   margin: 0 auto;
   max-width: 1440px;
@@ -13,15 +16,17 @@
 }
 
 .challenge-block {
-  margin: 10px auto 0 auto;
+  margin: 65px auto 0 auto;
   width: 65%;
   height: 55px;
-  font-size: 25px;
-  background-color: rgb(196, 255, 240);
+  font-size: 20px;
+  background-color: rgb(213 229 233);
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .data-block {
@@ -30,8 +35,16 @@
   margin: 10px auto 0 auto;
   width: 65%;
   height: 55px;
-  background-color: bisque;
+  background-color: rgb(213 229 233);
   border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.puzzle-peace:hover {
+  border: 2px solid rgb(0, 113, 128);
+  border-radius: 5px;
+  transition: border 3ms;
 }
 
 .out-field-main {
@@ -40,18 +53,20 @@
 
 .result-block {
   margin: 10px auto 0 auto;
-  padding: 0;
   width: 65%;
   /* height: 550px; */
-  background-color: rgb(151, 46, 92);
+  background-color: rgb(190 212 208);
   /* border: 1px solid black; */
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .puzzle-peace {
-  background-color: brown;
-  border: 1px solid black;
-  border-right: 0px;
+  background-color: #7acbe6;
+  border: 1px solid rgb(0, 113, 128);
   cursor: pointer;
+  transition: border 500ms;
+
 }
 
 .puzzle-word {
@@ -60,8 +75,8 @@
   font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);}
 
 .sentence {
-  /* border: 0.1px solid black; */
+  /* border-top: 1px solid black; */
   display: flex;
   width: 100%;
-  height: 55px;
+  height: 45px;
 }
