@@ -5,7 +5,7 @@ import Tag from '../../components/tags/tags';
 
 import './styles.css';
 import resultBlockDom from '../../components/for-main-page/resultBlockDom';
-import { createContinueBtn } from '../../components/buttons';
+import { createCheckBtn, createContinueBtn } from '../../components/buttons';
 
 export default class MainPage extends Page {
   async createContent() {
@@ -23,6 +23,7 @@ export default class MainPage extends Page {
     mainContainer.append(dataBlock);
     renderTasks(challengeBlock, dataBlock);
     createContinueBtn(mainContainer, challengeBlock, dataBlock);
+    createCheckBtn(mainContainer);
   }
   render() {
     this.createContent();

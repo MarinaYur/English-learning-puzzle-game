@@ -1,10 +1,12 @@
 import Tag from '../tags/tags';
 import checkPuzzlesOrder from './checkPuzzlesOrder';
+import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
 import resultBlockDom from './resultBlockDom';
 
 export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number], length: number, id: number) => {
   const puzzlePeace = new Tag('div', `puzzle-peace order-${text[1]}`).createElem();
   parent.append(puzzlePeace);
+  const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
@@ -13,6 +15,8 @@ export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number],
   puzzlePeace.append(p);
   const sentences = document.querySelectorAll('.sentence');
   puzzlePeace?.addEventListener('click', () => {
+    puzzlePeace.classList.remove('correct-puzzle');
+    puzzlePeace.classList.remove('incorrect-puzzle');
     if (puzzlePeace.parentElement?.classList.contains('data-block')) {
       sentences.forEach((sentence, index) => {
         if (index === id) {
@@ -25,7 +29,7 @@ export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number],
       puzzlePeace.classList.remove('right');
     }
     if (parent.childNodes.length === 0) {
-      checkPuzzlesOrder();
+      checkBtn?.removeAttribute('disabled');
     }
   });
 };
@@ -40,7 +44,6 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
     ' https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel1.json'
   );
   const data = await response.json();
-  console.log('data.roundsCount', data.roundsCount);
   if (roundCounter < 45) {
     if (wordCounter < 10) {
       const textExampleTranslate = data.rounds[roundCounter].words[wordCounter].textExampleTranslate;
@@ -53,13 +56,11 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
         createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter)
       );
       wordCounter += 1;
-      console.log('wordCounter: ', wordCounter, 'roundCounter', roundCounter);
     } else {
       if ((wordCounter = 10)) {
         console.log('wordCounter = 10', wordCounter);
         wordCounter = 0;
         roundCounter += 1;
-        console.log('wordCounter >= 10', wordCounter, 'roundCounter', roundCounter);
         challengeBlock.innerHTML = '';
         dataBlock.innerHTML = '';
         resultBlock.innerHTML = '';
