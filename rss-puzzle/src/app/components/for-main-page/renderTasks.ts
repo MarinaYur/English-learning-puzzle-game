@@ -1,43 +1,72 @@
 import Tag from '../tags/tags';
+import checkPuzzlesOrder from './checkPuzzlesOrder';
+import resultBlockDom from './resultBlockDom';
 
-export const createPuzzlesPieces = (parent: HTMLElement, text: string, length: number, id: number) => {
-  const puzzlePeace = new Tag('div', 'puzzle-peace').createElem();
+export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number], length: number, id: number) => {
+  const puzzlePeace = new Tag('div', `puzzle-peace order-${text[1]}`).createElem();
   parent.append(puzzlePeace);
   const parentWidth = parent.offsetWidth;
-  const width = (text.length / length) * parentWidth;
+  const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
   const p = new Tag('p', 'puzzle-word').createElem();
-  p.innerHTML = text;
+  p.innerHTML = text[0];
   puzzlePeace.append(p);
-
+  const sentences = document.querySelectorAll('.sentence');
   puzzlePeace?.addEventListener('click', () => {
-    const sentences = document.querySelectorAll('.sentence');
-    console.log(puzzlePeace.parentElement);
     if (puzzlePeace.parentElement?.classList.contains('data-block')) {
-    sentences.forEach((sentence, index) => {
-      if (index + 1 === id) {
-        // puzzlePeace.className = 'puzzle-peace-result';
-        sentence.append(puzzlePeace);
-      }
-    });
-  } else {
-    parent.append(puzzlePeace);
-  }
+      sentences.forEach((sentence, index) => {
+        if (index === id) {
+          sentence.append(puzzlePeace);
+          puzzlePeace.classList.add('placed');
+        }
+      });
+    } else {
+      parent.append(puzzlePeace);
+      puzzlePeace.classList.remove('right');
+    }
+    if (parent.childNodes.length === 0) {
+      checkPuzzlesOrder();
+    }
   });
 };
 
-const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement, id: number) => {
+export let roundCounter = 0;
+export let wordCounter = 0;
+
+const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
+  const resultBlock = document.querySelector('.result-block') as HTMLElement;
+
   const response = await fetch(
     ' https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel1.json'
   );
   const data = await response.json();
-  const textExampleTranslate = data.rounds[0].words[id - 1].textExampleTranslate;
-  const textExample = data.rounds[0].words[id - 1].textExample;
-  challengeBlock.innerHTML = textExampleTranslate;
-  const numberOfTaskLetters = textExample.split(' ').join('').length;
-  const randomTextExample = textExample.split(' ');
-  randomTextExample.sort(() => Math.random() - 0.5);
-  randomTextExample.forEach((item: string) => createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, id));
+  console.log('data.roundsCount', data.roundsCount);
+  if (roundCounter < 45) {
+    if (wordCounter < 10) {
+      const textExampleTranslate = data.rounds[roundCounter].words[wordCounter].textExampleTranslate;
+      const textExample = data.rounds[roundCounter].words[wordCounter].textExample;
+      challengeBlock.innerHTML = textExampleTranslate;
+      const numberOfTaskLetters = textExample.split(' ').join('').length;
+      const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);
+      randomTextExample.sort(() => Math.random() - 0.5);
+      randomTextExample.forEach((item: [string, number]) =>
+        createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter)
+      );
+      wordCounter += 1;
+      console.log('wordCounter: ', wordCounter, 'roundCounter', roundCounter);
+    } else {
+      if ((wordCounter = 10)) {
+        console.log('wordCounter = 10', wordCounter);
+        wordCounter = 0;
+        roundCounter += 1;
+        console.log('wordCounter >= 10', wordCounter, 'roundCounter', roundCounter);
+        challengeBlock.innerHTML = '';
+        dataBlock.innerHTML = '';
+        resultBlock.innerHTML = '';
+        resultBlockDom(resultBlock);
+      }
+    }
+  }
 };
 
 export default renderTasks;

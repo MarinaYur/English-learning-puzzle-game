@@ -1,8 +1,13 @@
-.start-btn {
+.start-btn, .continue-btn {
   font-size: 26px;
   color: beige;
   margin: auto;
   width: 20%;
   background-color: cadetblue;
   display: block;
+}
+
+.continue-btn {
+  background-color: rgba(194, 193, 162, 0.39);
+
 }

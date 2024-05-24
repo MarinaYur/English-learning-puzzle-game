@@ -1,14 +1,14 @@
-import Page from "../../components/core/templates/page";
-import logOut from "../../components/logout";
-import renderTasks from "../../components/for-main-page/renderTasks";
-import Tag from "../../components/tags/tags";
+import Page from '../../components/core/templates/page';
+import logOut from '../../components/logout';
+import renderTasks from '../../components/for-main-page/renderTasks';
+import Tag from '../../components/tags/tags';
 
 import './styles.css';
-import resultBlockDom from "../../components/for-main-page/resultBlockDom";
+import resultBlockDom from '../../components/for-main-page/resultBlockDom';
+import { createContinueBtn } from '../../components/buttons';
 
 export default class MainPage extends Page {
-
- async createContent() {
+  async createContent() {
     const mainContainer = new Tag('main', 'main-container', '', '', false, '', 'MainPage').createElem();
     this.container.append(mainContainer);
     const logOutBlock = logOut();
@@ -21,7 +21,8 @@ export default class MainPage extends Page {
     resultBlockDom(resultBlock);
     const dataBlock = new Tag('div', 'data-block').createElem();
     mainContainer.append(dataBlock);
-    renderTasks(challengeBlock, dataBlock, 1);
+    renderTasks(challengeBlock, dataBlock);
+    createContinueBtn(mainContainer, challengeBlock, dataBlock);
   }
   render() {
     this.createContent();
