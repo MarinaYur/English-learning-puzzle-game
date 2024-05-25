@@ -22,8 +22,8 @@ export default class MainPage extends Page {
     const dataBlock = new Tag('div', 'data-block').createElem();
     mainContainer.append(dataBlock);
     renderTasks(challengeBlock, dataBlock);
-    createContinueBtn(mainContainer, challengeBlock, dataBlock);
     createCheckBtn(mainContainer);
+    createContinueBtn(mainContainer, challengeBlock, dataBlock);
   }
   render() {
     this.createContent();

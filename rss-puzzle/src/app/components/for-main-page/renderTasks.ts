@@ -27,11 +27,15 @@ export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number],
     } else {
       parent.append(puzzlePeace);
       puzzlePeace.classList.remove('right');
+      checkBtn.setAttribute('disabled', 'disabled');
     }
+
     if (parent.childNodes.length === 0) {
       checkBtn?.removeAttribute('disabled');
     }
   });
+  checkBtn.style.display = 'block';
+  checkBtn.setAttribute('disabled', 'disabled');
 };
 
 export let roundCounter = 0;
@@ -39,7 +43,6 @@ export let wordCounter = 0;
 
 const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
   const resultBlock = document.querySelector('.result-block') as HTMLElement;
-
   const response = await fetch(
     ' https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel1.json'
   );
@@ -55,16 +58,20 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       randomTextExample.forEach((item: [string, number]) =>
         createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter)
       );
+      console.log('DO wordCounter = 10', wordCounter);
       wordCounter += 1;
     } else {
-      if ((wordCounter = 10)) {
+      if (wordCounter >= 10) {
         console.log('wordCounter = 10', wordCounter);
         wordCounter = 0;
+        console.log('wordCounter = 0', wordCounter);
         roundCounter += 1;
+        console.log('roundCounter = +1', roundCounter);
         challengeBlock.innerHTML = '';
         dataBlock.innerHTML = '';
         resultBlock.innerHTML = '';
         resultBlockDom(resultBlock);
+        renderTasks(challengeBlock, dataBlock);
       }
     }
   }

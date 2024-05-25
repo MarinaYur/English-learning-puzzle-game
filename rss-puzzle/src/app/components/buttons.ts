@@ -12,17 +12,19 @@ export const createCheckBtn = (container: HTMLElement) => {
   container.append(checkBtn);
   checkBtn.addEventListener('click', () => {
     checkPuzzlesOrder();
-
   });
 }
 
 export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
+  // const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const continueBtn = new Tag('button', 'btn continue-btn', 'Continue').createElem();
   continueBtn.setAttribute('disabled', 'disabled');
   container.append(continueBtn);
   continueBtn.addEventListener('click', () => {
     renderTasks(challengeBlock, dataBlock);
     continueBtn.setAttribute('disabled', 'disabled');
+    continueBtn.style.display = 'none';
+    // checkBtn.style.display ='block';
   });
 };
 

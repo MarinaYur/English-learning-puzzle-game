@@ -86,16 +86,25 @@
   color: beige;
   margin: auto;
   width: 20%;
-  background-color: rgba(194, 193, 162, 0.39);
+  background-color: rgba(194, 193, 162, 0.59);
   font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);
 }
 
 .check-btn {
   display: block;
+
+
 }
 
-.continue-btn, .check-btn:enabled {
+.continue-btn:enabled {
   background-color: cadetblue;
+}
+
+.check-btn:enabled {
+  /* background-color: #db5126; */
+  background-color: cadetblue;
+  color: #ff3d00;
+  font-weight: 700;
 }
 
 .disabled-div {
