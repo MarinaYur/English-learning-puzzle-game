@@ -5,7 +5,7 @@ import Tag from '../../components/tags/tags';
 
 import './styles.css';
 import resultBlockDom from '../../components/for-main-page/resultBlockDom';
-import { createCheckBtn, createContinueBtn } from '../../components/buttons';
+import { createAutoCompleteBtn, createCheckBtn, createContinueBtn } from '../../components/buttons';
 
 export default class MainPage extends Page {
   async createContent() {
@@ -22,8 +22,11 @@ export default class MainPage extends Page {
     const dataBlock = new Tag('div', 'data-block').createElem();
     mainContainer.append(dataBlock);
     renderTasks(challengeBlock, dataBlock);
-    createCheckBtn(mainContainer);
-    createContinueBtn(mainContainer, challengeBlock, dataBlock);
+    const btnsBlock = new Tag('div', 'btns-block').createElem();
+    mainContainer.append(btnsBlock);
+    createCheckBtn(btnsBlock);
+    createContinueBtn(btnsBlock, challengeBlock, dataBlock);
+    createAutoCompleteBtn(btnsBlock);
   }
   render() {
     this.createContent();

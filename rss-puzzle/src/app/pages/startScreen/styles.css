@@ -1,13 +1,13 @@
 .start-container {
   margin: 0 auto;
   max-width: 1440px;
-  height: 100vh;
+  /* height: 100vh; */
   background-image: url('../../../assets/puzzle-background-start.avif');
   padding: 65px;
 }
 
 .opacity {
-  height: 100vh;
+  /* height: 100vh; */
   background-color: rgb(171 208 199 / 70%);
 }
 
