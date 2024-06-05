@@ -19,7 +19,7 @@ export default class MainPage extends Page {
     const resultBlock = new Tag('div', 'result-block').createElem();
     mainContainer.append(resultBlock);
     resultBlockDom(resultBlock);
-    const dataBlock = new Tag('div', 'data-block').createElem();
+    const dataBlock = new Tag('div', 'data-block droppable').createElem();
     mainContainer.append(dataBlock);
     renderTasks(challengeBlock, dataBlock);
     const btnsBlock = new Tag('div', 'btns-block').createElem();

@@ -30,8 +30,6 @@ const autoCompleteFunction = () => {
     return orderA - orderB;
   });
 
-  const targetX = sentences[activeSentenceIndex].getBoundingClientRect().x;
-  const targetY = sentences[activeSentenceIndex].getBoundingClientRect().y;
   const insertItemWithDelay = (index: number) => {
     if (index < puzzleArray.length) {
       const item = puzzleArray[index] as HTMLElement;

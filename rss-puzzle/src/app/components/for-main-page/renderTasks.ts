@@ -1,6 +1,7 @@
 import Tag from '../tags/tags';
 import checkPuzzlesOrder from './checkPuzzlesOrder';
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
+import dragNdropFunction from './dragNdropFunction';
 import resultBlockDom from './resultBlockDom';
 
 export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number], length: number, id: number) => {
@@ -14,20 +15,25 @@ export const createPuzzlesPieces = (parent: HTMLElement, text: [string, number],
   p.innerHTML = text[0];
   puzzlePeace.append(p);
   const sentences = document.querySelectorAll('.sentence');
-  puzzlePeace?.addEventListener('click', () => {
-    puzzlePeace.classList.remove('correct-puzzle');
-    puzzlePeace.classList.remove('incorrect-puzzle');
-    if (puzzlePeace.parentElement?.classList.contains('data-block')) {
+  // dragNdropFunction(puzzlePeace, sentences);
+  puzzlePeace?.addEventListener('click', (e: Event) => {
+    let target = e.target as HTMLLIElement;
+    target.classList.remove('correct-puzzle');
+    target.classList.remove('incorrect-puzzle');
+    if (target.parentElement?.classList.contains('data-block')) {
       sentences.forEach((sentence, index) => {
+
         if (index === id) {
-          sentence.append(puzzlePeace);
-          puzzlePeace.classList.add('placed');
+          sentence.classList.add('droppable');
+          sentence.append(target);
+          target.classList.add('placed');
         }
       });
     } else {
       parent.append(puzzlePeace);
-      puzzlePeace.classList.remove('right');
+      target.classList.remove('right');
       checkBtn.setAttribute('disabled', 'disabled');
+
     }
 
     if (parent.childNodes.length === 0) {
@@ -58,15 +64,11 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       randomTextExample.forEach((item: [string, number]) =>
         createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter)
       );
-      console.log('DO wordCounter = 10', wordCounter);
       wordCounter += 1;
     } else {
       if (wordCounter >= 10) {
-        console.log('wordCounter = 10', wordCounter);
         wordCounter = 0;
-        console.log('wordCounter = 0', wordCounter);
         roundCounter += 1;
-        console.log('roundCounter = +1', roundCounter);
         challengeBlock.innerHTML = '';
         dataBlock.innerHTML = '';
         resultBlock.innerHTML = '';
