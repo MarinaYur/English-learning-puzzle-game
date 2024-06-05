@@ -6,6 +6,7 @@ import Tag from '../../components/tags/tags';
 import './styles.css';
 import resultBlockDom from '../../components/for-main-page/resultBlockDom';
 import { createAutoCompleteBtn, createCheckBtn, createContinueBtn } from '../../components/buttons';
+import fillingChallengeBlock from '../../components/for-main-page/fillingChallengeBlock';
 
 export default class MainPage extends Page {
   async createContent() {
@@ -16,12 +17,15 @@ export default class MainPage extends Page {
     mainContainer.append(logOutBlock);
     const challengeBlock = new Tag('div', 'challenge-block').createElem();
     mainContainer.append(challengeBlock);
+    const challHint = new Tag('div', 'challenge-hint challenge-hint-invisible').createElem();
+    challengeBlock.append(challHint);
+    fillingChallengeBlock(challengeBlock, challHint);
     const resultBlock = new Tag('div', 'result-block').createElem();
     mainContainer.append(resultBlock);
     resultBlockDom(resultBlock);
     const dataBlock = new Tag('div', 'data-block droppable').createElem();
     mainContainer.append(dataBlock);
-    renderTasks(challengeBlock, dataBlock);
+    renderTasks(challHint, dataBlock);
     const btnsBlock = new Tag('div', 'btns-block').createElem();
     mainContainer.append(btnsBlock);
     createCheckBtn(btnsBlock);

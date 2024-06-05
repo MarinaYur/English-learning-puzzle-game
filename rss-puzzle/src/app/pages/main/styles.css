@@ -24,9 +24,10 @@
   border: 1px solid black;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: end;
   border-radius: 10px;
   padding: 5px;
+  gap: 15px;
 }
 
 .data-block {
@@ -158,4 +159,25 @@
   border-radius: 51%;
   background: white;
   border: 1px solid rgb(0, 113, 128);
+}
+
+.chall-translation-hint {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.834);
+  background-image: url('./../../../assets/29050-607d8b.svg');
+  background-size: contain;
+  background-position: center;
+  border: 2px solid black;
+  text-align: right;
+}
+
+.chall-show-hint {
+  background-image: url('./../../../assets/29050-ffc107.svg');
+
+}
+
+.challenge-hint-invisible {
+  display: none;
 }
