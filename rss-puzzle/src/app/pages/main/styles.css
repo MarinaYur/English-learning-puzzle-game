@@ -62,17 +62,23 @@
 }
 
 .puzzle-peace {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 2px 0 2px;
   background-color: #7acbe6;
   border: 1px solid rgb(0, 113, 128);
   cursor: pointer;
   transition: border 500ms;
-
+  align-items: center;
 }
 
 .puzzle-word {
   text-align: center;
   line-height: 0px;
-  font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);}
+  font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);
+  /* padding: 20px; */
+}
 
 .sentence {
   /* border-top: 1px solid black; */
@@ -129,4 +135,27 @@
 
 .droppable {
 
+}
+
+.puzzle-peace-protrusion {
+  position: absolute;
+  top: 28%;
+  right: -1rem;
+  width: 15px;
+  height: 20px;
+  border-radius: 51%;
+  background-color: #7acbe6;
+  z-index: 10;
+  border: 1px solid rgb(0, 113, 128);
+}
+
+.puzzle-peace-aperture {
+  position: absolute;
+  left: 0;
+  top: 28%;
+  width: 15px;
+  height: 20px;
+  border-radius: 51%;
+  background: white;
+  border: 1px solid rgb(0, 113, 128);
 }
