@@ -29,7 +29,7 @@ export default class MainPage extends Page {
     const btnsBlock = new Tag('div', 'btns-block').createElem();
     mainContainer.append(btnsBlock);
     createCheckBtn(btnsBlock);
-    createContinueBtn(btnsBlock, challengeBlock, dataBlock);
+    createContinueBtn(btnsBlock, challHint, dataBlock);
     createAutoCompleteBtn(btnsBlock);
   }
   render() {

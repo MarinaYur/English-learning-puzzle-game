@@ -13,6 +13,5 @@ const fillingChallengeBlock = (parent: HTMLElement, hint: HTMLElement | null) =>
       showHint.classList.remove('chall-show-hint');
     }
   });
-}
 
 export default fillingChallengeBlock;

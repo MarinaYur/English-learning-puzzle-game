@@ -25,6 +25,10 @@ const checkPuzzlesOrder = () => {
       continueBtn.style.display = 'block';
       item.parentElement ? item.parentElement.classList.add('disabled-div') : 1;
       checkBtn.style.display = 'none';
+      const challHint = document.querySelector('.challenge-hint');
+      challHint?.classList.remove('challenge-hint-invisible');
+
+
     }
   });
   // resultBlock.addEventListener('click', (e: MouseEvent) => {

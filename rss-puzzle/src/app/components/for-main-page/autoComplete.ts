@@ -1,6 +1,12 @@
 import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
 
 const autoCompleteFunction = () => {
+  const challHint = document.querySelector('.challenge-hint');
+  // const showHint = document.querySelector('.chall-translation-hint');
+
+  challHint?.classList.remove('challenge-hint-invisible');
+  // showHint?.classList.add('chall-show-hint');
+
   const sentences = document.querySelectorAll('.sentence');
   let resultBlockWords: NodeListOf<Element> | null = null;
   let puzzleArray: Element[] = [];

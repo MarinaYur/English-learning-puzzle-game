@@ -25,6 +25,13 @@ export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLEl
     continueBtn.setAttribute('disabled', 'disabled');
     continueBtn.style.display = 'none';
     madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, false);
+    const challHint = document.querySelector('.challenge-hint');
+    const showHint = document.querySelector('.chall-translation-hint');
+    if (showHint?.classList.contains('chall-show-hint')) {
+      challHint?.classList.remove('challenge-hint-invisible');
+    } else {
+      challHint?.classList.add('challenge-hint-invisible');
+    }
   });
 };
 
