@@ -2,6 +2,7 @@ import Tag from '../tags/tags';
 import checkPuzzlesOrder from './checkPuzzlesOrder';
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
 import dragNdropFunction from './dragNdropFunction';
+import { hearTranslation, playPronunciation, pronunciationHint } from './fillingChallengeBlock';
 import resultBlockDom from './resultBlockDom';
 
 export const createPuzzlesPieces = (
@@ -68,10 +69,13 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
     ' https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel1.json'
   );
   const data = await response.json();
-  if (roundCounter < 45) {
+  if (roundCounter < data.roundsCount) {
     if (wordCounter < 10) {
       const textExampleTranslate = data.rounds[roundCounter].words[wordCounter].textExampleTranslate;
       const textExample = data.rounds[roundCounter].words[wordCounter].textExample;
+      const audioExample = data.rounds[roundCounter].words[wordCounter].audioExample;
+      pronunciationHint.removeEventListener('click', playPronunciation);
+      hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;
       const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);

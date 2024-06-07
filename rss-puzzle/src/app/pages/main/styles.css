@@ -24,7 +24,7 @@
   border: 1px solid black;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   border-radius: 10px;
   padding: 5px;
   gap: 15px;
@@ -161,16 +161,20 @@
   border: 1px solid rgb(0, 113, 128);
 }
 
-.chall-translation-hint {
+.hint {
   width: 35px;
   height: 35px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.834);
+  border: 2px solid black;
+  cursor: pointer;
+  /* text-align: right; */
+}
+
+.chall-translation-hint {
   background-image: url('./../../../assets/29050-607d8b.svg');
   background-size: contain;
   background-position: center;
-  border: 2px solid black;
-  text-align: right;
 }
 
 .chall-show-hint {
@@ -180,4 +184,48 @@
 
 .challenge-hint-invisible {
   display: none;
+}
+
+.chall-pronunciation-hint {
+  background-image: url('./../../../assets/speaker-0.svg');
+  background-size: contain;
+  background-position: center;
+ /* transition: animation 2s; */
+}
+
+.chall-pronunciation-hint-on {
+  background-image: url('./../../../assets/music-svgrepo-com (1).svg');
+  animation: 1s linear 0s infinite alternate animation;
+}
+
+@keyframes animation {
+  0% {
+    width: 30px;
+    height: 30px;
+    border-color: gold;
+  }
+
+  25% {
+    width: 34px;
+    height: 34px;
+    border-color:bisque
+  }
+
+  50% {
+    width: 40px;
+    height: 40px;
+    border-color:rgb(0, 113, 128)
+  }
+
+  75% {
+    width: 38px;
+    height: 38px;
+    border-color:bisque
+  }
+
+  100% {
+    width: 35px;
+    height: 35px;
+    border-color: gold;
+  }
 }
