@@ -1,11 +1,10 @@
 import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
 
 const autoCompleteFunction = () => {
+  const challPronunciationHint: Element | null = document.querySelector('.chall-pronunciation-hint');
   const challHint = document.querySelector('.challenge-hint');
-  // const showHint = document.querySelector('.chall-translation-hint');
-
   challHint?.classList.remove('challenge-hint-invisible');
-  // showHint?.classList.add('chall-show-hint');
+  challPronunciationHint?.classList.remove('chall-pronunciation-hint-invisible');
 
   const sentences = document.querySelectorAll('.sentence');
   let resultBlockWords: NodeListOf<Element> | null = null;

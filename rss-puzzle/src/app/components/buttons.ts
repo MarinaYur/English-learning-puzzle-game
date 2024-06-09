@@ -6,6 +6,7 @@ import renderTasks from './for-main-page/renderTasks';
 import checkPuzzlesOrder from './for-main-page/checkPuzzlesOrder';
 import autoCompleteFunction from './for-main-page/autoComplete';
 import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrChangeDisplay';
+import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
 
 export const createCheckBtn = (container: HTMLElement) => {
   const checkBtn = new Tag('button', 'btn check-btn', 'Check').createElem();
@@ -32,6 +33,13 @@ export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLEl
     } else {
       challHint?.classList.add('challenge-hint-invisible');
     }
+
+    if (showPronunciationHintBtn?.classList.contains('chall-show-pronunciation-hint-active')) {
+      pronunciationHint?.classList.remove('chall-pronunciation-hint-invisible');
+    } else {
+      pronunciationHint?.classList.add('chall-pronunciation-hint-invisible');
+    }
+
   });
 };
 

@@ -88,7 +88,9 @@
   height: 45px;
   transition: transform 0.7s ease-in;
 }
-.continue-btn, .check-btn, .auto-complete-btn {
+.continue-btn,
+.check-btn,
+.auto-complete-btn {
   display: none;
   font-size: 26px;
   color: beige;
@@ -102,7 +104,8 @@
   display: block;
 }
 
-.continue-btn:enabled, .auto-complete-btn:enabled {
+.continue-btn:enabled,
+.auto-complete-btn:enabled {
   background-color: cadetblue;
 }
 
@@ -135,7 +138,6 @@
 }
 
 .droppable {
-
 }
 
 .puzzle-peace-protrusion {
@@ -166,7 +168,7 @@
   height: 35px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.834);
-  border: 2px solid black;
+  border: 2px solid #607d8b;
   cursor: pointer;
   /* text-align: right; */
 }
@@ -179,22 +181,30 @@
 
 .chall-show-hint {
   background-image: url('./../../../assets/29050-ffc107.svg');
+}
 
+.challenge-hint {
+  width: 80%     s  ;
 }
 
 .challenge-hint-invisible {
-  display: none;
+  visibility: hidden;
 }
 
 .chall-pronunciation-hint {
   background-image: url('./../../../assets/speaker-0.svg');
   background-size: contain;
   background-position: center;
- /* transition: animation 2s; */
+  visibility: visible;
+  /* transition: animation 2s; */
+}
+
+.chall-pronunciation-hint-invisible {
+  visibility: hidden;
 }
 
 .chall-pronunciation-hint-on {
-  background-image: url('./../../../assets/music-svgrepo-com (1).svg');
+  background-image: url('./../../../assets/speaker-1.svg');
   animation: 1s linear 0s infinite alternate animation;
 }
 
@@ -208,19 +218,19 @@
   25% {
     width: 34px;
     height: 34px;
-    border-color:bisque
+    border-color: bisque;
   }
 
   50% {
     width: 40px;
     height: 40px;
-    border-color:rgb(0, 113, 128)
+    border-color: rgb(0, 113, 128);
   }
 
   75% {
     width: 38px;
     height: 38px;
-    border-color:bisque
+    border-color: bisque;
   }
 
   100% {
@@ -228,4 +238,19 @@
     height: 35px;
     border-color: gold;
   }
+}
+
+.tools-block {
+  display: flex;
+  gap: 3px;
+}
+
+.chall-show-pronunciation-hint {
+  background-image: url('./../../../assets/sound-ear-0.svg');
+  background-position: center;
+  background-size: contain;
+}
+
+.chall-show-pronunciation-hint-active {
+  background-image: url('./../../../assets/sound-ear-1.svg');
 }
