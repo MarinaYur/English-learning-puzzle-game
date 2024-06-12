@@ -2,16 +2,16 @@ import Tag from '../tags/tags';
 import checkPuzzlesOrder from './checkPuzzlesOrder';
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
 import dragNdropFunction from './dragNdropFunction';
-import { hearTranslation, playPronunciation, pronunciationHint } from './fillingChallengeBlock';
+import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImage } from './fillingChallengeBlock';
 import resultBlockDom from './resultBlockDom';
 
-let background: string;
+export let background: string;
 let prevPuzzlePeaceWidth: number = 0;
 let prevPuzzlePeaceHeight: number = 0;
 let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
-
 const resultBlock = document.querySelector('.result-block') as HTMLElement;
 let puzzleArray: Element[] = [];
+export const puzzlePeaceProtrusionBkg: HTMLElement | null = document.querySelector('.puzzle-peace-protrusion-bkg');
 
 export const createPuzzlesPieces = (
   parent: HTMLElement,
@@ -26,7 +26,9 @@ export const createPuzzlesPieces = (
   const parentWidth = parent.offsetWidth;
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
-  puzzlePeace.style.backgroundImage = `url(${background})`;
+  if (showBackgroundImage.classList.contains('chall-show-background-image-hint-on')) {
+    puzzlePeace.style.backgroundImage = `url(${background})`;
+  }
   puzzlePeace.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px ${prevPuzzlePeaceHeight}px`;
   puzzlePeace.style.backgroundSize = `907.188px 510.281px`;
   prevPuzzlePeaceWidth += width;
@@ -36,16 +38,18 @@ export const createPuzzlesPieces = (
   puzzlePeace.append(p);
 
   if (text[1] !== sentenseLength - 1) {
-    const puzzlePeaceProtrusion = new Tag('div', 'puzzle-peace-protrusion').createElem();
+    const puzzlePeaceProtrusion = new Tag('div', 'puzzle-peace-protrusion puzzle-peace-protrusion-bkg').createElem();
     puzzlePeace.prepend(puzzlePeaceProtrusion);
-    puzzlePeaceProtrusion.style.backgroundImage = `url(${background})`;
+    if (showBackgroundImage.classList.contains('chall-show-background-image-hint-on')) {
+      puzzlePeaceProtrusion.style.backgroundImage = `url(${background})`;
+    }
     puzzlePeaceProtrusion.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px  ${prevPuzzlePeaceProtrusionHeight}px`;
     puzzlePeaceProtrusion.style.backgroundSize = `907.188px 510.281px`;
+    puzzlePeaceProtrusion?.classList.remove('puzzle-peace-protrusion-bkg');
   } else if (text[1] === sentenseLength - 1) {
     prevPuzzlePeaceWidth = 0;
     prevPuzzlePeaceHeight -= 51.0281;
     prevPuzzlePeaceProtrusionHeight -= 51.0281;
-    console.log(Array.from(parent.childNodes));
     puzzleArray
       .sort(() => Math.random() - 0.5)
       .forEach((item) => {

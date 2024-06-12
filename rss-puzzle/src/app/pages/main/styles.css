@@ -99,8 +99,9 @@
   margin: 0;
 }
 
-.puzzle-peace-bkg {
-}
+/* .puzzle-peace-bkg {
+  background-color: white !important;
+} */
 
 .puzzle-word {
   text-align: center;
@@ -178,6 +179,7 @@
   z-index: 10;
   border: 2px solid white;
   border-left: none;
+  background-color: #7acbe6;
 }
 
 .puzzle-peace-aperture {
@@ -279,4 +281,16 @@
 
 .chall-show-pronunciation-hint-active {
   background-image: url('./../../../assets/sound-ear-1.svg');
+}
+
+.chall-show-background-image-hint {
+  background-image: url('./../../../assets/background-image-off.svg');
+  background-position: center;
+  background-size: 82%;
+  background-repeat: no-repeat;
+}
+
+.chall-show-background-image-hint-on {
+  background-image: url('./../../../assets/background-image-on.svg');
+
 }

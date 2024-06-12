@@ -1,3 +1,4 @@
+import { addBackground } from './addRemoveBackground';
 import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
 
 const autoCompleteFunction = () => {
@@ -38,8 +39,12 @@ const autoCompleteFunction = () => {
   const insertItemWithDelay = (index: number) => {
     if (index < puzzleArray.length) {
       const item = puzzleArray[index] as HTMLElement;
+
       item.classList.remove('placed');
       activeSentence?.append(item);
+      if (!item.style.backgroundImage) {
+        addBackground();
+      }
       setTimeout(() => {
         insertItemWithDelay(index + 1);
       }, 200);
