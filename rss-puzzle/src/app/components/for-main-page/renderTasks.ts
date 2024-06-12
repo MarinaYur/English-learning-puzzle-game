@@ -20,7 +20,7 @@ export const createPuzzlesPieces = (
   id: number,
   sentenseLength: number
 ) => {
-  const puzzlePeace = new Tag('div', `puzzle-peace puzzle-peace-bkg order-${text[1]}`).createElem();
+  const puzzlePeace = new Tag('div', `puzzle-peace order-${text[1]}`).createElem();
   puzzleArray.push(puzzlePeace);
   const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
@@ -84,6 +84,7 @@ export const createPuzzlesPieces = (
     }
 
     if (parent.childNodes.length === 0) {
+      // checkPuzzlesOrder();
       checkBtn?.removeAttribute('disabled');
     }
   });

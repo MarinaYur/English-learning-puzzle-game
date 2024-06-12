@@ -17,7 +17,7 @@ export default class MainPage extends Page {
     mainContainer.append(logOutBlock);
     const challengeBlock = new Tag('div', 'challenge-block').createElem();
     mainContainer.append(challengeBlock);
-    const challHint = new Tag('div', 'challenge-hint challenge-hint-invisible').createElem();
+    const challHint = new Tag('div', 'challenge-hint').createElem();
     challengeBlock.append(challHint);
     fillingChallengeBlock(challengeBlock, challHint);
     const resultBlock = new Tag('div', 'result-block').createElem();

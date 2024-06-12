@@ -17,6 +17,7 @@ const checkPuzzlesOrder = () => {
     } else {
       item.classList.add('incorrect-puzzle');
     }
+    console.log('counterRights', counterRights, 'activePuzzlePeacesLength', activePuzzlePeacesLength);
     if (counterRights === activePuzzlePeacesLength) {
       activePuzzlePeaces.forEach((item) => {
         item.classList.remove('placed');
@@ -27,20 +28,8 @@ const checkPuzzlesOrder = () => {
       checkBtn.style.display = 'none';
       const challHint = document.querySelector('.challenge-hint');
       challHint?.classList.remove('challenge-hint-invisible');
-
-
     }
   });
-  // resultBlock.addEventListener('click', (e: MouseEvent) => {
-  //  const correctPuzzles = resultBlock.querySelectorAll('.correct-puzzle');
-  //  correctPuzzles.forEach((item) => {
-  //   item.classList.remove('correct-puzzle');
-  //  })
-  //  const incorrectPuzzles = resultBlock.querySelectorAll('.incorrect-puzzle');
-  //  incorrectPuzzles.forEach((item) => {
-  //   item.classList.remove('incorrect-puzzle');
-  //  })
-  // })
 
   deletePuzzlePeaceHighlight();
 };

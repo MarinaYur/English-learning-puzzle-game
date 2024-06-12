@@ -2,13 +2,13 @@ import Tag from '../tags/tags';
 import { addBackground, removeBackground } from './addRemoveBackground';
 
 const toolsBlock = new Tag('div', 'tools-block').createElem();
-const showTranslationHint = new Tag('div', 'hint chall-translation-hint').createElem();
+const showTranslationHint = new Tag('div', 'hint chall-translation-hint chall-show-hint').createElem();
 export const pronunciationHint = new Tag(
   'div',
-  'hint chall-pronunciation-hint chall-pronunciation-hint-invisible'
+  'hint chall-pronunciation-hint'
 ).createElem();
-export const showPronunciationHintBtn = new Tag('div', 'hint chall-show-pronunciation-hint').createElem();
-export const showBackgroundImage = new Tag('div', 'hint chall-show-background-image-hint').createElem();
+export const showPronunciationHintBtn = new Tag('div', 'hint chall-show-pronunciation-hint chall-show-pronunciation-hint-active').createElem();
+export const showBackgroundImage = new Tag('div', 'hint chall-show-background-image-hint chall-show-background-image-hint-on').createElem();
 
 showBackgroundImage.addEventListener('click', () => {
   if (!showBackgroundImage.classList.contains('chall-show-background-image-hint-on')) {
@@ -21,12 +21,13 @@ showBackgroundImage.addEventListener('click', () => {
 });
 
 showPronunciationHintBtn.addEventListener('click', () => {
-  if (!showPronunciationHintBtn.classList.contains('chall-show-pronunciation-hint-active')) {
-    showPronunciationHintBtn.classList.add('chall-show-pronunciation-hint-active');
-    pronunciationHint.classList.remove('chall-pronunciation-hint-invisible');
-  } else {
+  if (showPronunciationHintBtn.classList.contains('chall-show-pronunciation-hint-active')) {
     showPronunciationHintBtn.classList.remove('chall-show-pronunciation-hint-active');
     pronunciationHint.classList.add('chall-pronunciation-hint-invisible');
+  } else {
+    showPronunciationHintBtn.classList.add('chall-show-pronunciation-hint-active');
+    pronunciationHint.classList.remove('chall-pronunciation-hint-invisible');
+
   }
 });
 

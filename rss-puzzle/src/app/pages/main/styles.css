@@ -281,6 +281,9 @@
 
 .chall-show-pronunciation-hint-active {
   background-image: url('./../../../assets/sound-ear-1.svg');
+  background-position: center;
+  background-size: contain;
+
 }
 
 .chall-show-background-image-hint {

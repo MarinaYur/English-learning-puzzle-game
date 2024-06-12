@@ -31,20 +31,17 @@ const autoCompleteFunction = () => {
   }
 
   puzzleArray.sort((itemA, itemB) => {
-    const orderA = Number(itemA.classList[2].slice(-1));
-    const orderB = Number(itemB.classList[2].slice(-1));
+    const orderA = Number(itemA.classList[1].slice(-1));
+    const orderB = Number(itemB.classList[1].slice(-1));
     return orderA - orderB;
   });
 
   const insertItemWithDelay = (index: number) => {
     if (index < puzzleArray.length) {
       const item = puzzleArray[index] as HTMLElement;
-
       item.classList.remove('placed');
       activeSentence?.append(item);
-      if (!item.style.backgroundImage) {
-        addBackground();
-      }
+      addBackground();
       setTimeout(() => {
         insertItemWithDelay(index + 1);
       }, 200);
@@ -56,8 +53,6 @@ const autoCompleteFunction = () => {
   };
 
   insertItemWithDelay(0);
-
-  console.log(puzzleArray);
 };
 
 export default autoCompleteFunction;

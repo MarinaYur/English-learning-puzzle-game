@@ -7,6 +7,7 @@ import checkPuzzlesOrder from './for-main-page/checkPuzzlesOrder';
 import autoCompleteFunction from './for-main-page/autoComplete';
 import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrChangeDisplay';
 import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
+import deletePuzzlePeaceHighlight from './for-main-page/deletePuzzlePeaceHighlight';
 
 export const createCheckBtn = (container: HTMLElement) => {
   const checkBtn = new Tag('button', 'btn check-btn', 'Check').createElem();
@@ -39,7 +40,7 @@ export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLEl
     } else {
       pronunciationHint?.classList.add('chall-pronunciation-hint-invisible');
     }
-
+    deletePuzzlePeaceHighlight();
   });
 };
 
