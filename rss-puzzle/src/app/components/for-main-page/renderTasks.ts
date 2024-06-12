@@ -5,6 +5,14 @@ import dragNdropFunction from './dragNdropFunction';
 import { hearTranslation, playPronunciation, pronunciationHint } from './fillingChallengeBlock';
 import resultBlockDom from './resultBlockDom';
 
+let background: string;
+let prevPuzzlePeaceWidth: number = 0;
+let prevPuzzlePeaceHeight: number = 0;
+let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
+
+const resultBlock = document.querySelector('.result-block') as HTMLElement;
+let puzzleArray: Element[] = [];
+
 export const createPuzzlesPieces = (
   parent: HTMLElement,
   text: [string, number],
@@ -12,12 +20,17 @@ export const createPuzzlesPieces = (
   id: number,
   sentenseLength: number
 ) => {
-  const puzzlePeace = new Tag('div', `puzzle-peace order-${text[1]}`).createElem();
-  parent.append(puzzlePeace);
+  const puzzlePeace = new Tag('div', `puzzle-peace puzzle-peace-bkg order-${text[1]}`).createElem();
+  puzzleArray.push(puzzlePeace);
   const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
+  puzzlePeace.style.backgroundImage = `url(${background})`;
+  puzzlePeace.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px ${prevPuzzlePeaceHeight}px`;
+  puzzlePeace.style.backgroundSize = `907.188px 510.281px`;
+  prevPuzzlePeaceWidth += width;
+
   const p = new Tag('p', 'puzzle-word').createElem();
   p.innerHTML = text[0];
   puzzlePeace.append(p);
@@ -25,6 +38,20 @@ export const createPuzzlesPieces = (
   if (text[1] !== sentenseLength - 1) {
     const puzzlePeaceProtrusion = new Tag('div', 'puzzle-peace-protrusion').createElem();
     puzzlePeace.prepend(puzzlePeaceProtrusion);
+    puzzlePeaceProtrusion.style.backgroundImage = `url(${background})`;
+    puzzlePeaceProtrusion.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px  ${prevPuzzlePeaceProtrusionHeight}px`;
+    puzzlePeaceProtrusion.style.backgroundSize = `907.188px 510.281px`;
+  } else if (text[1] === sentenseLength - 1) {
+    prevPuzzlePeaceWidth = 0;
+    prevPuzzlePeaceHeight -= 51.0281;
+    prevPuzzlePeaceProtrusionHeight -= 51.0281;
+    console.log(Array.from(parent.childNodes));
+    puzzleArray
+      .sort(() => Math.random() - 0.5)
+      .forEach((item) => {
+        parent.append(item);
+      });
+    puzzleArray = [];
   }
 
   if (text[1] !== 0) {
@@ -33,17 +60,17 @@ export const createPuzzlesPieces = (
   }
 
   const sentences = document.querySelectorAll('.sentence');
-  // dragNdropFunction(puzzlePeace, sentences);
+
   puzzlePeace?.addEventListener('click', (e: Event) => {
     let target = e.target as HTMLLIElement;
     target.classList.remove('correct-puzzle');
     target.classList.remove('incorrect-puzzle');
-    if (target.parentElement?.classList.contains('data-block')) {
+    if (puzzlePeace.parentElement?.classList.contains('data-block')) {
       sentences.forEach((sentence, index) => {
         if (index === id) {
           sentence.classList.add('droppable');
-          sentence.append(target);
-          target.classList.add('placed');
+          sentence.append(puzzlePeace);
+          puzzlePeace.classList.add('placed');
         }
       });
     } else {
@@ -75,11 +102,13 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       const textExample = data.rounds[roundCounter].words[wordCounter].textExample;
       const audioExample = data.rounds[roundCounter].words[wordCounter].audioExample;
       pronunciationHint.removeEventListener('click', playPronunciation);
+      background =
+        'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' +
+        data.rounds[roundCounter].levelData.cutSrc;
       hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;
       const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);
-      randomTextExample.sort(() => Math.random() - 0.5);
       randomTextExample.forEach((item: [string, number]) =>
         createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter, textExample.split(' ').length)
       );
@@ -90,7 +119,7 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
         roundCounter += 1;
         challengeBlock.innerHTML = '';
         dataBlock.innerHTML = '';
-        resultBlock.innerHTML = '';
+        resultBlock ? (resultBlock.innerHTML = '') : console.log('1');
         resultBlockDom(resultBlock);
         renderTasks(challengeBlock, dataBlock);
       }

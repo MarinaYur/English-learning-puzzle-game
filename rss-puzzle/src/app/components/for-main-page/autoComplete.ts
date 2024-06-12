@@ -10,7 +10,7 @@ const autoCompleteFunction = () => {
   let resultBlockWords: NodeListOf<Element> | null = null;
   let puzzleArray: Element[] = [];
   let activeSentence: Element | null = null;
-  let activeSentenceIndex: number = 0
+  let activeSentenceIndex: number = 0;
 
   sentences.forEach((sentence, index) => {
     if (!sentence.classList.contains('disabled-div') && resultBlockWords === null) {
@@ -30,8 +30,8 @@ const autoCompleteFunction = () => {
   }
 
   puzzleArray.sort((itemA, itemB) => {
-    const orderA = Number(itemA.classList[1].slice(-1));
-    const orderB = Number(itemB.classList[1].slice(-1));
+    const orderA = Number(itemA.classList[2].slice(-1));
+    const orderB = Number(itemB.classList[2].slice(-1));
     return orderA - orderB;
   });
 
