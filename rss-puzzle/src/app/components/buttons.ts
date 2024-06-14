@@ -48,6 +48,7 @@ const createStartBtn = (container: HTMLElement) => {
   const startBtn = new Tag('button', 'btn start-btn', 'Start Game').createElem();
   container.append(startBtn);
   startBtn.onclick = () => {
+    // location.reload();
     App.renderNewPage('MainPage');
   };
 };

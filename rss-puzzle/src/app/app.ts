@@ -1,4 +1,5 @@
 import Page from './components/core/templates/page';
+import { saveInLocalStorage } from './components/for-main-page/saveInLicalStorage';
 import LoginPage from './pages/login/index';
 import MainPage from './pages/main/index';
 import StartScreen from './pages/startScreen/index';
@@ -15,6 +16,7 @@ export default class App {
     logOutBtn?.addEventListener('click', () => {
       localStorage.clear();
       App.renderNewPage('LoginPage');
+      location.reload();
     });
   };
 
@@ -25,12 +27,7 @@ export default class App {
       e.preventDefault();
       const userFirstName: HTMLInputElement | null = loginForm.querySelector('[name = "name"]');
       const userSurName: HTMLInputElement | null = document.querySelector('.surname');
-      const user = {
-        firstName: userFirstName?.value,
-        surName: userSurName?.value
-      };
-      const userStr: string = JSON.stringify(user);
-      localStorage.setItem('rss-puzzle', userStr);
+      saveInLocalStorage([true, true, true], userFirstName, userSurName);
       App.renderNewPage('StartScreen');
     });
   };

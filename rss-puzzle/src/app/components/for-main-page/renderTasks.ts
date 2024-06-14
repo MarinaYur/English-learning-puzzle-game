@@ -1,8 +1,9 @@
 import Tag from '../tags/tags';
+import { htmlElOrNull } from '../types/types';
 import checkPuzzlesOrder from './checkPuzzlesOrder';
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
 import dragNdropFunction from './dragNdropFunction';
-import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImage } from './fillingChallengeBlock';
+import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
 import resultBlockDom from './resultBlockDom';
 
 export let background: string;
@@ -11,7 +12,7 @@ let prevPuzzlePeaceHeight: number = 0;
 let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
 const resultBlock = document.querySelector('.result-block') as HTMLElement;
 let puzzleArray: Element[] = [];
-export const puzzlePeaceProtrusionBkg: HTMLElement | null = document.querySelector('.puzzle-peace-protrusion-bkg');
+export const puzzlePeaceProtrusionBkg: htmlElOrNull = document.querySelector('.puzzle-peace-protrusion-bkg');
 
 export const createPuzzlesPieces = (
   parent: HTMLElement,
@@ -26,7 +27,7 @@ export const createPuzzlesPieces = (
   const parentWidth = parent.offsetWidth;
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
-  if (showBackgroundImage.classList.contains('chall-show-background-image-hint-on')) {
+  if (showBackgroundImageBtn.classList.contains('chall-show-background-image-hint-on')) {
     puzzlePeace.style.backgroundImage = `url(${background})`;
   }
   puzzlePeace.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px ${prevPuzzlePeaceHeight}px`;
@@ -40,7 +41,7 @@ export const createPuzzlesPieces = (
   if (text[1] !== sentenseLength - 1) {
     const puzzlePeaceProtrusion = new Tag('div', 'puzzle-peace-protrusion puzzle-peace-protrusion-bkg').createElem();
     puzzlePeace.prepend(puzzlePeaceProtrusion);
-    if (showBackgroundImage.classList.contains('chall-show-background-image-hint-on')) {
+    if (showBackgroundImageBtn.classList.contains('chall-show-background-image-hint-on')) {
       puzzlePeaceProtrusion.style.backgroundImage = `url(${background})`;
     }
     puzzlePeaceProtrusion.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px  ${prevPuzzlePeaceProtrusionHeight}px`;
