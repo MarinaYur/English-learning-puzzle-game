@@ -9,6 +9,15 @@ import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrCha
 import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
 import deletePuzzlePeaceHighlight from './for-main-page/deletePuzzlePeaceHighlight';
 
+export const ifClickContinueBtn = (challengeBlock: HTMLElement, dataBlock:HTMLElement, continueBtn: HTMLElement | null) => {
+  renderTasks(challengeBlock, dataBlock);
+if (continueBtn) {
+    continueBtn.setAttribute('disabled', 'disabled');
+    continueBtn.style.display = 'none';
+}
+    madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, false);
+}
+
 export const createCheckBtn = (container: HTMLElement) => {
   const checkBtn = new Tag('button', 'btn check-btn', 'Check').createElem();
   checkBtn.setAttribute('disabled', 'disabled');
@@ -23,10 +32,7 @@ export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLEl
   continueBtn.setAttribute('disabled', 'disabled');
   container.append(continueBtn);
   continueBtn.addEventListener('click', () => {
-    renderTasks(challengeBlock, dataBlock);
-    continueBtn.setAttribute('disabled', 'disabled');
-    continueBtn.style.display = 'none';
-    madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, false);
+    ifClickContinueBtn(challengeBlock, dataBlock, continueBtn);
     const challHint = document.querySelector('.challenge-hint');
     const showHint = document.querySelector('.chall-translation-hint');
     if (showHint?.classList.contains('chall-show-hint')) {

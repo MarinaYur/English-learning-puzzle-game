@@ -1,18 +1,23 @@
+import { doc } from '../../../../node_modules/prettier/index';
+import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
-import checkPuzzlesOrder from './checkPuzzlesOrder';
-import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
-import dragNdropFunction from './dragNdropFunction';
 import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
+import { createSelectedList, dataFromResponse, levelIndex, roundIndex } from './fillingLevelRoundBlock';
 import resultBlockDom from './resultBlockDom';
 
+export let roundsNumber: number = 45;
 export let background: string;
+// let levelRoundBlock = document.querySelector('.level-round');
+let challBlock: HTMLElement;
+// let dataBlock: HTMLElement;
 let prevPuzzlePeaceWidth: number = 0;
 let prevPuzzlePeaceHeight: number = 0;
 let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
-const resultBlock = document.querySelector('.result-block') as HTMLElement;
+let resultBlock: HTMLElement;
 let puzzleArray: Element[] = [];
 export const puzzlePeaceProtrusionBkg: htmlElOrNull = document.querySelector('.puzzle-peace-protrusion-bkg');
+const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
 
 export const createPuzzlesPieces = (
   parent: HTMLElement,
@@ -25,6 +30,7 @@ export const createPuzzlesPieces = (
   puzzleArray.push(puzzlePeace);
   const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
+  // console.log(window.innerWidth);
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
   if (showBackgroundImageBtn.classList.contains('chall-show-background-image-hint-on')) {
@@ -56,6 +62,8 @@ export const createPuzzlesPieces = (
       .forEach((item) => {
         parent.append(item);
       });
+    // console.log(puzzlePeace.children[0].innerHTML.length);
+
     puzzleArray = [];
   }
 
@@ -85,7 +93,6 @@ export const createPuzzlesPieces = (
     }
 
     if (parent.childNodes.length === 0) {
-      // checkPuzzlesOrder();
       checkBtn?.removeAttribute('disabled');
     }
   });
@@ -97,12 +104,11 @@ export let roundCounter = 0;
 export let wordCounter = 0;
 
 const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
-  const resultBlock = document.querySelector('.result-block') as HTMLElement;
-  const response = await fetch(
-    ' https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/data/wordCollectionLevel1.json'
-  );
-  const data = await response.json();
-  if (roundCounter < data.roundsCount) {
+  challBlock = challengeBlock;
+  resultBlock = document.querySelector('.result-block') as HTMLElement;
+  const data = await dataFromResponse;
+  roundsNumber = data.roundsCount;
+  if (roundCounter < roundsNumber) {
     if (wordCounter < 10) {
       const textExampleTranslate = data.rounds[roundCounter].words[wordCounter].textExampleTranslate;
       const textExample = data.rounds[roundCounter].words[wordCounter].textExample;
@@ -115,22 +121,48 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       challengeBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;
       const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);
-      randomTextExample.forEach((item: [string, number]) =>
-        createPuzzlesPieces(dataBlock, item, numberOfTaskLetters, wordCounter, textExample.split(' ').length)
-      );
+      randomTextExample.forEach((item) => {
+        createPuzzlesPieces(
+          dataBlock,
+          item as [string, number],
+          numberOfTaskLetters,
+          wordCounter,
+          textExample.split(' ').length
+        );
+      });
       wordCounter += 1;
     } else {
       if (wordCounter >= 10) {
-        wordCounter = 0;
         roundCounter += 1;
-        challengeBlock.innerHTML = '';
-        dataBlock.innerHTML = '';
-        resultBlock ? (resultBlock.innerHTML = '') : console.log('1');
-        resultBlockDom(resultBlock);
-        renderTasks(challengeBlock, dataBlock);
+        turnOnGameChanger(dataBlock);
       }
     }
   }
+  // console.log('roundCounter', roundCounter);
+  // console.log('wordCounter', wordCounter);
+};
+
+export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number) => {
+  wordCounter = 0;
+  prevPuzzlePeaceWidth = 0;
+  prevPuzzlePeaceHeight = 0;
+  prevPuzzlePeaceProtrusionHeight = -14.2878;
+  puzzleArray = [];
+  // console.log('roundCounter', roundCounter);
+  if (roundIndex || roundIndex === 0) {
+    roundCounter = roundIndex;
+  }
+  if (roundIndex === -1)
+  {
+    roundCounter = 0;
+  }
+  console.log('roundCounter', roundCounter);
+  const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
+  challBlock.innerHTML = '';
+  dataBlock.innerHTML = '';
+  resultBlock ? (resultBlock.innerHTML = '') : console.log('1');
+  resultBlockDom(resultBlock);
+  ifClickContinueBtn(challBlock, dataBlock, continueBtn);
 };
 
 export default renderTasks;
