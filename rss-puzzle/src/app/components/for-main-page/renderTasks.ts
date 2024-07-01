@@ -133,13 +133,20 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       wordCounter += 1;
     } else {
       if (wordCounter >= 10) {
+        const roundSelect: HTMLSelectElement | null = document.querySelector('.form-select-Round');
+        const roundOptions =  roundSelect?.querySelectorAll('.form-option');
+        if (roundOptions) {
+        const selectedOption = roundOptions[roundCounter];
+        // console.log('roundOptions', roundOptions[roundCounter]);
+        // const completedRound = new Tag('div', 'completed-round').createElem();
+        // selectedOption.prepend(completedRound);
+        selectedOption.classList.add('round-selected-option');
+      }
         roundCounter += 1;
         turnOnGameChanger(dataBlock);
       }
     }
   }
-  // console.log('roundCounter', roundCounter);
-  // console.log('wordCounter', wordCounter);
 };
 
 export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number) => {
