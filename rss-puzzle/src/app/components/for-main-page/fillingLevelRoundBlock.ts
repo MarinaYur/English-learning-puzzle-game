@@ -31,8 +31,11 @@ export const levelFormChangeHandler = (parent: htmlElOrNull) => {
   select?.addEventListener('click', async function () {
     const levelOptions = select?.querySelectorAll('.dropdown-option');
     levelOptions?.forEach((option, ind) => {
-      console.log('selectedOptionFromFilling', selectedOption);
-      if (option === selectedOption) levelIndex = ind + 1;
+      option.classList.remove('active-level');
+      if (option === selectedOption) {
+        levelIndex = ind + 1;
+        option.classList.add('active-level');
+      }
     });
     const response = await fetch(
       `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
@@ -54,7 +57,11 @@ export const roundFormChangeHandler = (parent: htmlElOrNull) => {
   roundSelect?.addEventListener('click', async function () {
     const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
     roundOptions?.forEach((option, ind) => {
-      if (option === selectedOption) roundIndex = ind;
+      option.classList.remove('active-round');
+      if (option === selectedOption) {
+        roundIndex = ind;
+        option.classList.add('active-round');
+      }
     });
     const dataBlock: HTMLElement | null = document.querySelector('.data-block');
     console.log('roundIndex', roundSelect?.selectedIndex);

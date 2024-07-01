@@ -2,6 +2,7 @@ import { doc } from '../../../../node_modules/prettier/index';
 import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
+import { checkIfAllRoundsAreCompleted } from './checkIfAllRoundsAreCompleted';
 import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
 import { createSelectedList, dataFromResponse, levelIndex, roundIndex } from './fillingLevelRoundBlock';
 import resultBlockDom from './resultBlockDom';
@@ -133,14 +134,12 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       wordCounter += 1;
     } else {
       if (wordCounter >= 10) {
-        const roundSelect: HTMLSelectElement | null = document.querySelector('.form-select-Round');
-        const roundOptions =  roundSelect?.querySelectorAll('.form-option');
+        const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
+        const roundOptions =  roundSelect?.querySelectorAll('.dropdown-option');
         if (roundOptions) {
         const selectedOption = roundOptions[roundCounter];
-        // console.log('roundOptions', roundOptions[roundCounter]);
-        // const completedRound = new Tag('div', 'completed-round').createElem();
-        // selectedOption.prepend(completedRound);
         selectedOption.classList.add('round-selected-option');
+        checkIfAllRoundsAreCompleted(roundOptions);
       }
         roundCounter += 1;
         turnOnGameChanger(dataBlock);

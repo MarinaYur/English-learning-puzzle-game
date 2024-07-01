@@ -369,13 +369,13 @@
 }
 
 
-.dropdown-menu li {
+.dropdown-option {
   padding: 5px 14px;
   color: rgb(8, 152, 123);
   list-style-type: none;
 }
 
-.dropdown-menu li:hover {
+.dropdown-option:hover {
   background: #f0f0f0;
 }
 
@@ -390,7 +390,15 @@
   background: #fff;
 } */
 
-.dropdown-option {
+/* .dropdown-option {
   color: rgb(8, 152, 123);
+} */
+
+.round-selected-option {
+  color: rgba(8, 152, 123, 0.4);
 }
 
+.active-level, .active-round {
+  text-decoration: underline solid 2px;
+  text-underline-offset: 5px;
+}
