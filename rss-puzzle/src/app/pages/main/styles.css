@@ -394,11 +394,11 @@
   color: rgb(8, 152, 123);
 } */
 
-.round-selected-option {
+.completed-option {
   color: rgba(8, 152, 123, 0.4);
 }
 
-.active-level, .active-round {
+.active-l-r {
   text-decoration: underline solid 2px;
   text-underline-offset: 5px;
 }

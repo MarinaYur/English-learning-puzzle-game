@@ -1,14 +1,16 @@
 // import { roundIndex } from './fillingLevelRoundBlock';
+import { levelRoundBlock } from '../../pages/main/index';
 import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
+import { getLevelsRoundsComplFromLS, getRSSPuzzleFromLS, levelsRoundsCompleteness } from './getFromLocalStorage';
 import { ResponseData } from './interfaces/ResponseData';
-import { makeResponse } from './makeResponse';
 import { onDropdown, selectedOption } from './onDropdown';
-import renderTasks, { roundsNumber, turnOnGameChanger } from './renderTasks';
+import { roundsNumber, turnOnGameChanger } from './renderTasks';
+import { saveNextLevelRoundAfterPassedInLS } from './saveInLicalStorage';
 
 export let dataFromResponse: ResponseData;
-export let levelIndex: number | undefined = 1;
-export let roundIndex: number | undefined = 0;
+export let levelIndex: number = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextLevelAfterPassed : 1;
+export let roundIndex: number = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextRoundAfterPassed : 0;
 
 export const createSelectedList = (n: number, kind: string) => {
   const dropdown = new Tag('div', `dropdown dropdown-${kind}`).createElem();
@@ -21,6 +23,30 @@ export const createSelectedList = (n: number, kind: string) => {
     option.innerHTML = `${kind} ${i}`;
     dropdownToggle.innerHTML = `${kind} ${1}`;
     select.append(option);
+    i === 1 ? option.classList.add('active-l-r') : 1;
+    if (levelsRoundsCompleteness) {
+      const levelCompleteness = getLevelsRoundsComplFromLS()[i];
+      const roundCompleteness = levelsRoundsCompleteness[levelIndex as number][i];
+      if (kind === 'Level') {
+        dropdownToggle.innerHTML = `${kind} ${levelIndex || 1}`;
+        if (levelCompleteness[0] === true) {
+          option.classList.add('completed-option');
+          // levelIndex = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextLevelAfterPassed : 1
+        }
+        option.classList.remove('active-l-r');
+        i === getRSSPuzzleFromLS().nextLevelAfterPassed ? option.classList.add('active-l-r') : 1;
+        // console.log(getRSSPuzzleFromLS().nextLevelAfterPassed);
+      }
+      if (kind === 'Round') {
+        dropdownToggle.innerHTML = `${kind} ${roundIndex + 1 || 0}`;
+        if (roundCompleteness === true) {
+          option.classList.add('completed-option');
+        }
+        //  roundIndex = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextLevelAfterPassed : 0;
+        option.classList.remove('active-l-r');
+        i === getRSSPuzzleFromLS().nextRoundAfterPassed + 1 ? option.classList.add('active-l-r') : 1;
+      }
+    }
   }
   return dropdown;
 };
@@ -31,12 +57,14 @@ export const levelFormChangeHandler = (parent: htmlElOrNull) => {
   select?.addEventListener('click', async function () {
     const levelOptions = select?.querySelectorAll('.dropdown-option');
     levelOptions?.forEach((option, ind) => {
-      option.classList.remove('active-level');
+      option.classList.remove('active-l-r');
       if (option === selectedOption) {
         levelIndex = ind + 1;
-        option.classList.add('active-level');
+        option.classList.add('active-l-r');
       }
+      // saveNextLevelRoundAfterPassedInLS();
     });
+
     const response = await fetch(
       `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
     );
@@ -47,7 +75,7 @@ export const levelFormChangeHandler = (parent: htmlElOrNull) => {
     parent?.append(roundForm);
     const dataBlock: HTMLElement | null = document.querySelector('.data-block');
     roundFormChangeHandler(parent);
-    if (dataBlock) turnOnGameChanger(dataBlock, -1);
+    if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
   });
 };
 
@@ -57,19 +85,21 @@ export const roundFormChangeHandler = (parent: htmlElOrNull) => {
   roundSelect?.addEventListener('click', async function () {
     const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
     roundOptions?.forEach((option, ind) => {
-      option.classList.remove('active-round');
+      option.classList.remove('active-l-r');
       if (option === selectedOption) {
         roundIndex = ind;
-        option.classList.add('active-round');
+        option.classList.add('active-l-r');
       }
+      // saveNextLevelRoundAfterPassedInLS(roundIndex);
     });
     const dataBlock: HTMLElement | null = document.querySelector('.data-block');
-    console.log('roundIndex', roundSelect?.selectedIndex);
+    // console.log('roundIndex', roundSelect?.selectedIndex);
     if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
   });
 };
 
-export const fillingLevelRoundBlock = async (parent: htmlElOrNull) => {
+export const fillingLevelRoundBlock = async (parent: htmlElOrNull, level?: number) => {
+  if (level && levelIndex) levelIndex += 1;
   const response = await fetch(
     `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
   );
@@ -80,4 +110,11 @@ export const fillingLevelRoundBlock = async (parent: htmlElOrNull) => {
   parent?.append(roundForm);
   levelFormChangeHandler(parent);
   roundFormChangeHandler(parent);
+};
+
+export const moveToNextLevel = (level: number) => {
+  if (level && levelIndex) levelIndex += level;
+  // const levelRoundBlock = document.querySelector('.level-round');
+  levelFormChangeHandler(levelRoundBlock);
+  // roundFormChangeHandler(levelRoundBlock);
 };

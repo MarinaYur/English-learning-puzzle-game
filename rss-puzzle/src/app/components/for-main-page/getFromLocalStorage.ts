@@ -1,5 +1,17 @@
 import { htmlElOrNull } from "../types/types";
 
+export const getRSSPuzzleFromLS = () => {
+  return JSON.parse(localStorage['rss-puzzle'])
+}
+
+export const getLevelsRoundsComplFromLS = () => {
+  if (localStorage['rss-puzzle'])
+  return JSON.parse(localStorage['rss-puzzle']).completed;
+// else console.log("No RSS");
+}
+
+export const levelsRoundsCompleteness = getLevelsRoundsComplFromLS();
+
 export const getFromLocalStorage = () => {
   return JSON.parse(localStorage['rss-puzzle']).hints;
 };

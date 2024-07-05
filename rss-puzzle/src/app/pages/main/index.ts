@@ -11,15 +11,17 @@ import { isShowTranslation } from '../../components/for-main-page/getFromLocalSt
 import { fillingLevelRoundBlock } from '../../components/for-main-page/fillingLevelRoundBlock';
 import { makeResponse } from '../../components/for-main-page/makeResponse';
 
+export const levelRoundBlock = new Tag('div','level-round').createElem();
+
+
 export default class MainPage extends Page {
   async createContent() {
-
     const mainContainer = new Tag('main', 'main-container', '', '', false, '', 'MainPage').createElem();
     this.container.append(mainContainer);
     const logOutBlock = logOut();
     logOutBlock.className = 'out-field-main out-field';
     mainContainer.append(logOutBlock);
-    const levelRoundBlock = new Tag('div','level-round').createElem();
+    // const levelRoundBlock = new Tag('div','level-round').createElem();
     mainContainer.append(levelRoundBlock);
     await fillingLevelRoundBlock(levelRoundBlock);
     // makeResponse();
