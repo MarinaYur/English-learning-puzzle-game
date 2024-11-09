@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "ci:format": "prettier --check .",
     "br-name": "npx validate-branch-name",
-    "pre-push": "npm run lint && npm run br-name"
+    "pre-push": "npm run lint && npm run br-name",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.3",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.2.0",
     "husky": "^9.0.11",
     "install": "^0.13.0",
     "lint-staged": "^15.2.2",
@@ -34,6 +36,7 @@
     "postcss-cssnext": "^3.1.1",
     "postcss-import": "^16.0.1",
     "postcss-loader": "^8.1.1",
+    "rimraf": "^6.0.1",
     "sass-loader": "^14.1.1",
     "style-loader": "^3.3.4",
     "sugarss": "^4.0.1",
