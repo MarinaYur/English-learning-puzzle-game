@@ -24,7 +24,6 @@ const dragNdropFunction = (elem: HTMLElement, sentences: NodeListOf<Element>) =>
       elem.hidden = true;
       elemBelow = document.elementFromPoint(e.clientX, e.clientY);
       elem.hidden = false;
-
     }
 
     document.addEventListener('mousemove', onMouseMove);

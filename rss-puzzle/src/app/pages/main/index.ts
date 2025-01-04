@@ -11,8 +11,7 @@ import { isShowTranslation } from '../../components/for-main-page/getFromLocalSt
 import { fillingLevelRoundBlock } from '../../components/for-main-page/fillingLevelRoundBlock';
 import { makeResponse } from '../../components/for-main-page/makeResponse';
 
-export const levelRoundBlock = new Tag('div','level-round').createElem();
-
+export const levelRoundBlock = new Tag('div', 'level-round').createElem();
 
 export default class MainPage extends Page {
   async createContent() {

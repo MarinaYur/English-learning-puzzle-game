@@ -65,7 +65,8 @@
   cursor: pointer;
 }
 
-.log-out, .out:hover {
+.log-out,
+.out:hover {
   color: rgb(8, 152, 123);
   text-decoration: underline;
 }

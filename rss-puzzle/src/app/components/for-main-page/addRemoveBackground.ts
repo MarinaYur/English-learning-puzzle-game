@@ -1,13 +1,11 @@
-import { background } from "./renderTasks";
-
-
+import { background } from './renderTasks';
 
 export const addBackground = () => {
   const puzzlePeaces = document.querySelectorAll('.puzzle-peace');
   const puzzlePeaceProtrusions = document.querySelectorAll('.puzzle-peace-protrusion');
 
-  puzzlePeaces.forEach((item) => (item as HTMLElement).style.backgroundImage = `url(${background})`);
-  puzzlePeaceProtrusions.forEach((item) => (item as HTMLElement).style.backgroundImage = `url(${background})`);
+  puzzlePeaces.forEach((item) => ((item as HTMLElement).style.backgroundImage = `url(${background})`));
+  puzzlePeaceProtrusions.forEach((item) => ((item as HTMLElement).style.backgroundImage = `url(${background})`));
 };
 
 export const removeBackground = () => {
@@ -21,7 +19,7 @@ export const removeBackground = () => {
   });
   puzzlePeaceProtrusions.forEach((item) => {
     if (!item.parentElement?.parentElement?.classList.contains('disabled-div')) {
-    (item as HTMLElement).style.backgroundImage = 'none'
-  }
+      (item as HTMLElement).style.backgroundImage = 'none';
+    }
   });
-}
+};

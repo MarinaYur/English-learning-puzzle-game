@@ -4,7 +4,14 @@ import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
 import { checkIfAllRoundsAreCompleted } from './checkIfAllRoundsAreCompleted';
 import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
-import { createSelectedList, dataFromResponse, fillingLevelRoundBlock, levelIndex, moveToNextLevel, roundIndex } from './fillingLevelRoundBlock';
+import {
+  createSelectedList,
+  dataFromResponse,
+  fillingLevelRoundBlock,
+  levelIndex,
+  moveToNextLevel,
+  roundIndex
+} from './fillingLevelRoundBlock';
 import { getRSSPuzzleFromLS } from './getFromLocalStorage';
 import resultBlockDom from './resultBlockDom';
 import { saveNextLevelRoundAfterPassedInLS } from './saveInLicalStorage';
@@ -137,30 +144,30 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
     } else {
       if (wordCounter >= 10) {
         const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
-        const roundOptions =  roundSelect?.querySelectorAll('.dropdown-option');
+        const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
         if (roundOptions) {
-        const selectedOption = roundOptions[roundCounter];
-        const nextOption = roundOptions[roundCounter + 1];
-        const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
-        selectedOption.classList.add('completed-option');
+          const selectedOption = roundOptions[roundCounter];
+          const nextOption = roundOptions[roundCounter + 1];
+          const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
+          selectedOption.classList.add('completed-option');
 
-        let puzzle = JSON.parse(localStorage['rss-puzzle']);
-        puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
-        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+          let puzzle = JSON.parse(localStorage['rss-puzzle']);
+          puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
+          localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
 
-        // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
-        selectedOption.classList.remove('active-l-r');
-        nextOption.classList.add('active-l-r');
-        if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
-        checkIfAllRoundsAreCompleted(roundOptions);
-      }
-      if (roundCounter === roundsNumber) {
-        let puzzle = JSON.parse(localStorage['rss-puzzle']);
-        puzzle.completed[levelIndex as number][0] = true;
-        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
-        moveToNextLevel(1);
-        roundCounter = 0;
-      }
+          // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
+          selectedOption.classList.remove('active-l-r');
+          nextOption.classList.add('active-l-r');
+          if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
+          checkIfAllRoundsAreCompleted(roundOptions);
+        }
+        if (roundCounter === roundsNumber) {
+          let puzzle = JSON.parse(localStorage['rss-puzzle']);
+          puzzle.completed[levelIndex as number][0] = true;
+          localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+          moveToNextLevel(1);
+          roundCounter = 0;
+        }
         roundCounter += 1;
         saveNextLevelRoundAfterPassedInLS(roundCounter);
         turnOnGameChanger(dataBlock);

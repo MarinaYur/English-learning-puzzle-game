@@ -50,6 +50,25 @@
   padding: 5px;
 }
 
+.data-block-info {
+  /* background-image: url('../../../assets/puzzle-background-start.avif'); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+
+.data-block-info p {
+  padding: 0;
+  margin: auto;
+}
+
+.picture-name {
+  color: rgb(8, 152, 123);
+  font-size: larger;
+  font-weight: 600;
+}
+
 .puzzle-peace:hover .puzzle-peace-protrusion {
   border: 2px solid rgb(0, 113, 128);
   border-radius: 5px;
@@ -131,7 +150,8 @@
 }
 .continue-btn,
 .check-btn,
-.auto-complete-btn {
+.auto-complete-btn,
+.result-btn {
   display: none;
   font-size: 26px;
   color: beige;
@@ -350,7 +370,6 @@
   cursor: pointer;
 }
 
-
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -367,7 +386,6 @@
   z-index: 12;
   overflow-y: auto;
 }
-
 
 .dropdown-option {
   padding: 5px 14px;

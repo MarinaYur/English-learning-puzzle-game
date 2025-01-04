@@ -1,4 +1,4 @@
-import { levelIndex, roundIndex } from "./fillingLevelRoundBlock";
+import { levelIndex, roundIndex } from './fillingLevelRoundBlock';
 
 export const saveInLocalStorage = (
   hintStatus: (boolean | '')[],
@@ -22,10 +22,10 @@ export const saveInLocalStorage = (
           3: [false],
           4: [false],
           5: [false],
-          6: [false],
+          6: [false]
         },
         nextLevelAfterPassed: 1,
-        nextRoundAfterPassed: 0,
+        nextRoundAfterPassed: 0
       };
   if (hintStatus[0] !== '') userData.hints.isShowAudio = hintStatus[0];
   if (hintStatus[1] !== '') userData.hints.isShowTranslate = hintStatus[1];
@@ -36,7 +36,6 @@ export const saveInLocalStorage = (
 export const saveNextLevelRoundAfterPassedInLS = (prop?: number) => {
   let puzzle = JSON.parse(localStorage['rss-puzzle']);
   puzzle.nextLevelAfterPassed = levelIndex;
-  if (prop || prop === 0)
-  puzzle.nextRoundAfterPassed = prop;
+  if (prop || prop === 0) puzzle.nextRoundAfterPassed = prop;
   localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
-}
+};
