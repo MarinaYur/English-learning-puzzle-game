@@ -1,8 +1,0 @@
-.start-btn {
-  font-size: clamp(1rem, 0.8355rem + 0.6645vw, 1.5rem);
-  color: beige;
-  margin: auto;
-  width: 20%;
-  background-color: cadetblue;
-  display: block;
-}
