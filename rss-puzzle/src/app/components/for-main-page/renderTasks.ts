@@ -127,6 +127,7 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       background =
         'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' +
         data.rounds[roundCounter].levelData.cutSrc;
+      resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;

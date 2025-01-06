@@ -23,7 +23,6 @@
   margin: 0 auto 0 auto;
   max-width: 907.188px;
   width: 100%;
-  /* aspect-ratio: 907 / 510; */
   min-height: 55px;
   font-size: 20px;
   background-color: rgb(213 229 233);
@@ -51,7 +50,6 @@
 }
 
 .data-block-info {
-  /* background-image: url('../../../assets/puzzle-background-start.avif'); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,7 +76,6 @@
 
 .puzzle-peace:hover .puzzle-peace-aperture {
   border: 2px solid rgb(0, 113, 128);
-  /* border-radius: 5px; */
   border-left: 2px solid rgb(245, 242, 241);
   transition: border 3ms;
   z-index: 5;
@@ -100,7 +97,6 @@
   width: 100%;
   aspect-ratio: 907 / 510;
   background-color: rgb(190 212 208);
-  background-image: url('https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/level1/cut/deerhunt.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -123,17 +119,22 @@
   background-color: #7acbe6;
   border: 1px solid white;
   cursor: pointer;
-  transition: border 500ms;
+  /* transition: border 500ms; */
   align-items: center;
+  opacity: 1;
+  transition:
+    opacity 1.5s ease,
+    transform 1.5s ease;
+}
+
+.fall {
+  opacity: 0;
+  transform: translateY(25vh);
 }
 
 .result-block .puzzle-peace {
   margin: 0;
 }
-
-/* .puzzle-peace-bkg {
-  background-color: white !important;
-} */
 
 .puzzle-word {
   text-align: center;
@@ -147,6 +148,7 @@
   width: 100%;
   height: 51.0281px;
   transition: transdropdown 0.7s ease-in;
+  transition: 2s;
 }
 .continue-btn,
 .check-btn,
@@ -213,6 +215,7 @@
   border: 2px solid white;
   border-left: none;
   background-color: #7acbe6;
+  transition: 2s;
 }
 
 .puzzle-peace-aperture {
@@ -226,6 +229,7 @@
   border: 2px solid white;
   z-index: 5;
   border-left: none;
+  transition: 2s;
 }
 
 .hint {

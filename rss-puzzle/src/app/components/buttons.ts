@@ -17,16 +17,23 @@ export const ifClickContinueBtn = (
   continueBtn: HTMLElement | null
 ) => {
   const round = document.querySelectorAll('.active-l-r');
+  const resultBlock: HTMLElement | null = document.querySelector('.result-block');
+
   let roundIndex: number = 0;
   const match = round[1].innerHTML.match(/\d+/);
   if (match) {
     roundIndex = +match[0];
   }
+
   if (wordCounter === 10 && ifRoundIsFinished) {
+    addPuzzleDisappearance();
     showPictureInfo(roundIndex);
     ifRoundIsFinished = false;
   } else {
     renderTasks(challengeBlock, dataBlock);
+    if (resultBlock) {
+      resultBlock.style.backgroundBlendMode = 'luminosity';
+    }
     ifRoundIsFinished = true;
     dataBlock.classList.remove('data-block-info');
   }
@@ -97,17 +104,31 @@ export default createStartBtn;
 
 export const showPictureInfo = (roundIndex: number) => {
   const dataBlock = document.querySelector('.data-block');
-  const info = dataFromResponse.rounds[roundIndex].levelData;
+  const resultBlock: HTMLElement | null = document.querySelector('.result-block');
+  const info = dataFromResponse.rounds[roundIndex - 1].levelData;
   const pictureName = info.name;
   const pictureAuthor = info.author;
   const pictureYear = info.year;
+  const background =
+    'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' + info.cutSrc;
+  if (resultBlock) {
+    resultBlock.style.backgroundBlendMode = 'normal';
+  }
+
   if (dataBlock) {
     dataBlock.innerHTML = `<p class="picture-name">${pictureName}</p>
   <p class="picture-auth-year">${pictureAuthor}, ${pictureYear}</p>`;
     dataBlock?.classList.add('data-block-info');
   }
-  console.log('dataFromResponse', dataFromResponse.rounds[roundIndex]);
-  console.log('roundIndex', roundIndex);
+};
 
-  // challengeBlock?.innerHTML;
+export const addPuzzleDisappearance = () => {
+  const puzzlePeaces = document.querySelectorAll('.puzzle-peace');
+  puzzlePeaces.forEach((pPeace) => {
+    const peace = pPeace as HTMLElement;
+    setTimeout(() => {
+      peace.classList.add('fall');
+    }, Math.random() * 1000);
+  });
+  console.log(puzzlePeaces);
 };
