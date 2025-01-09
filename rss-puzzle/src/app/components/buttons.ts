@@ -26,8 +26,12 @@ export const ifClickContinueBtn = (
   }
 
   if (wordCounter === 10 && ifRoundIsFinished) {
+    madeBtnDisabledOrChangeDisplay('.continue-btn', true, false);
+    madeBtnDisabledOrChangeDisplay('.result-btn', true, false);
+    madeBtnDisabledOrChangeDisplay('.auto-complete-btn', false, true);
     addPuzzleDisappearance();
-    showPictureInfo(roundIndex);
+    showPictureInfo(roundIndex, resultBlock, dataBlock);
+
     ifRoundIsFinished = false;
   } else {
     renderTasks(challengeBlock, dataBlock);
@@ -38,12 +42,12 @@ export const ifClickContinueBtn = (
     dataBlock.classList.remove('data-block-info');
   }
 
-  if (continueBtn) {
+  if (continueBtn && wordCounter !== 10) {
     continueBtn.setAttribute('disabled', 'disabled');
     continueBtn.style.display = 'none';
+    madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, false);
+    madeBtnDisabledOrChangeDisplay('.result-btn', false, true);
   }
-  madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, false);
-  console.log('wordCounter', wordCounter);
 };
 
 export const createCheckBtn = (container: HTMLElement) => {
@@ -89,36 +93,40 @@ const createStartBtn = (container: HTMLElement) => {
 
 export const createResultBtn = (container: HTMLElement) => {
   const resultBtn = new Tag('button', 'btn result-btn', 'Result').createElem();
+  // resultBtn.setAttribute('disabled', 'disabled');
   container.append(resultBtn);
-  resultBtn.onclick = () => {};
+
+  resultBtn.onclick = () => {
+    App.renderNewPage('ResultsPage');
+  };
 };
 
 export const createAutoCompleteBtn = (container: HTMLElement) => {
   const autoComplete = new Tag('button', 'btn auto-complete-btn', 'Auto-Complete').createElem();
   container.append(autoComplete);
+  autoComplete.style.display = wordCounter === 10 ? 'none' : 'block';
   autoComplete.addEventListener('click', () => {
     autoCompleteFunction();
   });
 };
 export default createStartBtn;
 
-export const showPictureInfo = (roundIndex: number) => {
-  const dataBlock = document.querySelector('.data-block');
-  const resultBlock: HTMLElement | null = document.querySelector('.result-block');
+export const showPictureInfo = (roundIndex: number, block1: HTMLElement | null, block2: HTMLElement | null ) => {
   const info = dataFromResponse.rounds[roundIndex - 1].levelData;
   const pictureName = info.name;
   const pictureAuthor = info.author;
   const pictureYear = info.year;
   const background =
     'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' + info.cutSrc;
-  if (resultBlock) {
-    resultBlock.style.backgroundBlendMode = 'normal';
+  if (block1) {
+    block1.style.backgroundImage = `url(${background})`;
+    block1.style.backgroundBlendMode = 'normal';
   }
 
-  if (dataBlock) {
-    dataBlock.innerHTML = `<p class="picture-name">${pictureName}</p>
+  if (block2) {
+    block2.innerHTML = `<p class="picture-name">${pictureName}</p>
   <p class="picture-auth-year">${pictureAuthor}, ${pictureYear}</p>`;
-    dataBlock?.classList.add('data-block-info');
+  block2?.classList.add('data-block-info');
   }
 };
 
