@@ -2,6 +2,7 @@ import Page from './components/core/templates/page';
 import { saveInLocalStorage } from './components/for-main-page/saveInLicalStorage';
 import LoginPage from './pages/login/index';
 import MainPage from './pages/main/index';
+import ResultsPage from './pages/results/results';
 import StartScreen from './pages/startScreen/index';
 
 export default class App {
@@ -44,6 +45,9 @@ export default class App {
     }
     if (pageId === 'StartScreen') {
       page = new StartScreen(pageId);
+    }
+    if (pageId === 'ResultsPage') {
+      page = new ResultsPage(pageId);
     } else if (pageId === 'MainPage') {
       page = new MainPage(pageId);
     }

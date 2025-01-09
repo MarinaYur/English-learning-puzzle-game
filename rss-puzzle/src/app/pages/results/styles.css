@@ -1,0 +1,17 @@
+.results-container {
+  margin: auto;
+  max-width: 800px;
+  width: 100%;
+}
+
+.results-block-image {
+  margin: 0 auto;
+  width: 199px;
+  height: 124px;
+  background-size: cover;
+}
+
+.results-table {
+  max-height: 60vh;
+  overflow: scroll;
+}
