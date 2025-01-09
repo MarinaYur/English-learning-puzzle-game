@@ -5,17 +5,16 @@
 #current-page {
   max-width: 1440px;
   width: 100%;
+  background-image: url('../../../../src/assets/puzzle-background-start.avif');
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: blueviolet;
   margin: 0 auto;
   /* max-width: 1440px; */
   /* height: 100vh; */
-  background-image: url('../../../assets/puzzle-background-start.avif');
   padding: 65px;
 }
 
@@ -168,7 +167,8 @@
 }
 
 .continue-btn:enabled,
-.auto-complete-btn:enabled {
+.auto-complete-btn:enabled,
+.result-btn:enabled {
   background-color: cadetblue;
 }
 

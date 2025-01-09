@@ -1,17 +1,17 @@
 import createStartBtn from '../../components/buttons';
 import Page from '../../components/core/templates/page';
-import logOut from '../../components/logout';
+import logOut, { addLogOutBlock } from '../../components/logout';
 import Tag from '../../components/tags/tags';
 
 import './styles.css';
 
 export default class StartScreen extends Page {
   createContent() {
+    addLogOutBlock(this.container);
     const startContainer = new Tag('main', 'start-container', '', '', false, '', 'StartContainer').createElem();
     this.container.append(startContainer);
     const backgroundOpacity = new Tag('div', 'opacity').createElem();
     startContainer.append(backgroundOpacity);
-    backgroundOpacity.append(logOut());
     const greeting = new Tag('h2', 'start-screen-greeting').createElem();
     backgroundOpacity.append(greeting);
     greeting.innerHTML = this.renderGreeting();
