@@ -111,7 +111,7 @@ export const createAutoCompleteBtn = (container: HTMLElement) => {
 };
 export default createStartBtn;
 
-export const showPictureInfo = (roundIndex: number, block1: HTMLElement | null, block2: HTMLElement | null ) => {
+export const showPictureInfo = (roundIndex: number, block1: HTMLElement | null, block2: HTMLElement | null) => {
   const info = dataFromResponse.rounds[roundIndex - 1].levelData;
   const pictureName = info.name;
   const pictureAuthor = info.author;
@@ -126,7 +126,7 @@ export const showPictureInfo = (roundIndex: number, block1: HTMLElement | null, 
   if (block2) {
     block2.innerHTML = `<p class="picture-name">${pictureName}</p>
   <p class="picture-auth-year">${pictureAuthor}, ${pictureYear}</p>`;
-  block2?.classList.add('data-block-info');
+    block2?.classList.add('data-block-info');
   }
 };
 

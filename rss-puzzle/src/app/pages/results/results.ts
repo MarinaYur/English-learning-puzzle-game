@@ -1,8 +1,8 @@
-import { showPictureInfo } from "../../components/buttons";
-import Page from "../../components/core/templates/page";
-import { roundIndex } from "../../components/for-main-page/fillingLevelRoundBlock";
-import { addLogOutBlock } from "../../components/logout";
-import Tag from "../../components/tags/tags";
+import { showPictureInfo } from '../../components/buttons';
+import Page from '../../components/core/templates/page';
+import { roundIndex } from '../../components/for-main-page/fillingLevelRoundBlock';
+import { addLogOutBlock } from '../../components/logout';
+import Tag from '../../components/tags/tags';
 import './styles.css';
 
 export default class ResultsPage extends Page {

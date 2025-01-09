@@ -15,4 +15,4 @@ export default logOut;
 
 export const addLogOutBlock = (block: HTMLElement) => {
   block.append(logOut());
-}
+};

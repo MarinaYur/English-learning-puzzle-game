@@ -47,8 +47,7 @@ export default class App {
       page = new StartScreen(pageId);
     }
     if (pageId === 'ResultsPage') {
-        page = new ResultsPage(pageId);
-
+      page = new ResultsPage(pageId);
     } else if (pageId === 'MainPage') {
       page = new MainPage(pageId);
     }

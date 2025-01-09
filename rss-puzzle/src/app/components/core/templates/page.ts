@@ -1,4 +1,5 @@
-import logOut from "../../logout";
+
+import logOut from '../../logout';
 
 abstract class Page {
   protected container: HTMLElement;
