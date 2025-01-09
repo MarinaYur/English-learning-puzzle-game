@@ -1,3 +1,4 @@
+
 import logOut from '../../logout';
 
 abstract class Page {
