@@ -1,6 +1,7 @@
-import { showPictureInfo } from '../../components/buttons';
+import { addContinueBtnOnResultPage, createContinueBtn, showPictureInfo } from '../../components/buttons';
 import Page from '../../components/core/templates/page';
 import { roundIndex } from '../../components/for-main-page/fillingLevelRoundBlock';
+import { roundCounter } from '../../components/for-main-page/renderTasks';
 import { addLogOutBlock } from '../../components/logout';
 import Tag from '../../components/tags/tags';
 import './styles.css';
@@ -18,7 +19,7 @@ export default class ResultsPage extends Page {
     pictureBlock.append(infoBlock);
     const resultsTable = new Tag('div', 'results-table').createElem();
     resultsContainer.append(resultsTable);
-    showPictureInfo(roundIndex + 1, image, infoBlock);
+    showPictureInfo(roundCounter, image, infoBlock);
     const ul = new Tag('ul', '').createElem();
     resultsTable.append(ul);
     const li1NotKnow = new Tag('li', '').createElem();
@@ -33,6 +34,7 @@ export default class ResultsPage extends Page {
     li2Know.append(ul2);
     ul.append(li1NotKnow);
     ul.append(li2Know);
+    addContinueBtnOnResultPage(resultsContainer);
   }
   render() {
     this.createContent();

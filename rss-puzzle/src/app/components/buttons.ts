@@ -1,14 +1,16 @@
+import { levelRoundBlock } from './../pages/main/index';
 import Tag from './tags/tags';
 
 import './styles.css';
+import './../pages/results/styles.css';
 import App from '../app';
-import renderTasks, { wordCounter } from './for-main-page/renderTasks';
+import renderTasks, { roundCounter, wordCounter } from './for-main-page/renderTasks';
 import checkPuzzlesOrder from './for-main-page/checkPuzzlesOrder';
 import autoCompleteFunction from './for-main-page/autoComplete';
 import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrChangeDisplay';
 import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
 import deletePuzzlePeaceHighlight from './for-main-page/deletePuzzlePeaceHighlight';
-import { dataFromResponse } from './for-main-page/fillingLevelRoundBlock';
+import { dataFromResponse, levelIndex, roundIndex } from './for-main-page/fillingLevelRoundBlock';
 
 let ifRoundIsFinished = true;
 export const ifClickContinueBtn = (
@@ -19,18 +21,18 @@ export const ifClickContinueBtn = (
   const round = document.querySelectorAll('.active-l-r');
   const resultBlock: HTMLElement | null = document.querySelector('.result-block');
 
-  let roundIndex: number = 0;
-  const match = round[1].innerHTML.match(/\d+/);
-  if (match) {
-    roundIndex = +match[0];
-  }
+  // let roundIndex: number = 0;
+  // const match = round[1].innerHTML.match(/\d+/);
+  // if (match) {
+  //   roundIndex = +match[0];
+  // }
 
   if (wordCounter === 10 && ifRoundIsFinished) {
     madeBtnDisabledOrChangeDisplay('.continue-btn', true, false);
     madeBtnDisabledOrChangeDisplay('.result-btn', true, false);
     madeBtnDisabledOrChangeDisplay('.auto-complete-btn', false, true);
     addPuzzleDisappearance();
-    showPictureInfo(roundIndex, resultBlock, dataBlock);
+    showPictureInfo(roundCounter, resultBlock, dataBlock);
 
     ifRoundIsFinished = false;
   } else {
@@ -93,9 +95,7 @@ const createStartBtn = (container: HTMLElement) => {
 
 export const createResultBtn = (container: HTMLElement) => {
   const resultBtn = new Tag('button', 'btn result-btn', 'Result').createElem();
-  // resultBtn.setAttribute('disabled', 'disabled');
   container.append(resultBtn);
-
   resultBtn.onclick = () => {
     App.renderNewPage('ResultsPage');
   };
@@ -111,8 +111,12 @@ export const createAutoCompleteBtn = (container: HTMLElement) => {
 };
 export default createStartBtn;
 
-export const showPictureInfo = (roundIndex: number, block1: HTMLElement | null, block2: HTMLElement | null) => {
-  const info = dataFromResponse.rounds[roundIndex - 1].levelData;
+export const showPictureInfo = async (roundIndex: number, block1: HTMLElement | null, block2: HTMLElement | null) => {
+  const response = await fetch(
+    `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
+  );
+  const fromResponse = await response.json();
+  const info = fromResponse.rounds[roundCounter].levelData;
   const pictureName = info.name;
   const pictureAuthor = info.author;
   const pictureYear = info.year;
@@ -139,4 +143,20 @@ export const addPuzzleDisappearance = () => {
     }, Math.random() * 1000);
   });
   console.log(puzzlePeaces);
+};
+
+export const addContinueBtnOnResultPage = (container: HTMLElement) => {
+  const continueBtn = new Tag(
+    'button',
+    'btn res-continue-btn continue-btn',
+    'Continue',
+    '',
+    false,
+    '',
+    'res-continue-btn'
+  ).createElem();
+  container.append(continueBtn);
+  continueBtn.onclick = () => {
+    App.renderNewPage('MainPage');
+  };
 };

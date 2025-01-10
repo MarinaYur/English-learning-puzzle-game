@@ -126,7 +126,7 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       pronunciationHint.removeEventListener('click', playPronunciation);
       background =
         'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' +
-        data.rounds[roundCounter].levelData.cutSrc;
+        data.rounds[roundCounter].levelData.imageSrc;
       resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;

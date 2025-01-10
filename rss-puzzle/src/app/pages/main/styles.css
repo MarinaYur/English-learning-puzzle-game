@@ -5,17 +5,17 @@
 #current-page {
   max-width: 1440px;
   width: 100%;
-  background-image: url('../../../../src/assets/puzzle-background-start.avif');
+  /* background-image: url('../../../../src/assets/puzzle-background-start.avif'); */
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 907.188px;
   margin: 0 auto;
-  /* max-width: 1440px; */
-  /* height: 100vh; */
-  padding: 65px;
+  padding-bottom: 65px;
+  gap: 7px;
 }
 
 .challenge-block {
@@ -37,7 +37,7 @@
 .data-block {
   display: flex;
   justify-content: stretch;
-  margin: 10px auto 48px auto;
+  /* margin: 10px auto 48px auto; */
   max-width: 907.188px;
   aspect-ratio: 907 / 510;
   width: 100%;
@@ -91,9 +91,9 @@
 }
 
 .result-block {
-  margin: 10px auto 0 auto;
-  max-width: 907.188px;
-  width: 100%;
+  /* margin: 10px auto 0 auto; */
+  /* max-width: 907.188px; */
+  /* width: 100%; */
   aspect-ratio: 907 / 510;
   background-color: rgb(190 212 208);
   background-size: 100% 100%;
@@ -132,7 +132,7 @@
 }
 
 .result-block .puzzle-peace {
-  margin: 0;
+  /* margin: 0; */
 }
 
 .puzzle-word {
@@ -336,7 +336,7 @@
 }
 
 .level-round {
-  margin: 15px auto;
+  margin: auto;
   display: flex;
   gap: 10px;
 }
