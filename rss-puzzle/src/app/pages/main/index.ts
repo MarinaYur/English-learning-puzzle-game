@@ -19,6 +19,7 @@ export default class MainPage extends Page {
     const mainContainer = new Tag('main', 'main-container', '', '', false, '', 'MainPage').createElem();
     this.container.append(mainContainer);
     mainContainer.append(levelRoundBlock);
+    levelRoundBlock.innerHTML = '';
     await fillingLevelRoundBlock(levelRoundBlock);
     const challengeBlock = new Tag('div', 'challenge-block').createElem();
     mainContainer.append(challengeBlock);
