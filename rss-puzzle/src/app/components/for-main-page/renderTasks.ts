@@ -1,4 +1,4 @@
-import { doc } from '../../../../node_modules/prettier/index';
+import { doc } from 'prettier/index';
 import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
@@ -47,7 +47,7 @@ export const createPuzzlesPieces = (
     puzzlePeace.style.backgroundImage = `url(${background})`;
   }
   puzzlePeace.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px ${prevPuzzlePeaceHeight}px`;
-  puzzlePeace.style.backgroundSize = `907.188px 510.281px`;
+  puzzlePeace.style.backgroundSize = '907.188px 510.281px';
   prevPuzzlePeaceWidth += width;
 
   const p = new Tag('p', 'puzzle-word').createElem();
@@ -61,7 +61,7 @@ export const createPuzzlesPieces = (
       puzzlePeaceProtrusion.style.backgroundImage = `url(${background})`;
     }
     puzzlePeaceProtrusion.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px  ${prevPuzzlePeaceProtrusionHeight}px`;
-    puzzlePeaceProtrusion.style.backgroundSize = `907.188px 510.281px`;
+    puzzlePeaceProtrusion.style.backgroundSize = '907.188px 510.281px';
     puzzlePeaceProtrusion?.classList.remove('puzzle-peace-protrusion-bkg');
   } else if (text[1] === sentenseLength - 1) {
     prevPuzzlePeaceWidth = 0;
@@ -85,7 +85,7 @@ export const createPuzzlesPieces = (
   const sentences = document.querySelectorAll('.sentence');
 
   puzzlePeace?.addEventListener('click', (e: Event) => {
-    let target = e.target as HTMLLIElement;
+    const target = e.target as HTMLLIElement;
     target.classList.remove('correct-puzzle');
     target.classList.remove('incorrect-puzzle');
     if (puzzlePeace.parentElement?.classList.contains('data-block')) {
@@ -120,13 +120,12 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
   roundsNumber = data.roundsCount;
   if (roundCounter < roundsNumber) {
     if (wordCounter < 10) {
-      const textExampleTranslate = data.rounds[roundCounter].words[wordCounter].textExampleTranslate;
-      const textExample = data.rounds[roundCounter].words[wordCounter].textExample;
-      const audioExample = data.rounds[roundCounter].words[wordCounter].audioExample;
+      const { textExampleTranslate } = data.rounds[roundCounter].words[wordCounter];
+      const { textExample } = data.rounds[roundCounter].words[wordCounter];
+      const { audioExample } = data.rounds[roundCounter].words[wordCounter];
       pronunciationHint.removeEventListener('click', playPronunciation);
-      background =
-        'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' +
-        data.rounds[roundCounter].levelData.imageSrc;
+      background = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
+      data.rounds[roundCounter].levelData.imageSrc;
       resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;
@@ -142,37 +141,35 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
         );
       });
       wordCounter += 1;
-    } else {
-      if (wordCounter >= 10) {
-        const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
-        const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
-        if (roundOptions) {
-          const selectedOption = roundOptions[roundCounter];
-          const nextOption = roundOptions[roundCounter + 1];
-          const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
-          selectedOption.classList.add('completed-option');
+    } else if (wordCounter >= 10) {
+      const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
+      const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
+      if (roundOptions) {
+        const selectedOption = roundOptions[roundCounter];
+        const nextOption = roundOptions[roundCounter + 1];
+        const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
+        selectedOption.classList.add('completed-option');
 
-          let puzzle = JSON.parse(localStorage['rss-puzzle']);
-          puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
-          localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+        const puzzle = JSON.parse(localStorage['rss-puzzle']);
+        puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
+        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
 
-          // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
-          selectedOption.classList.remove('active-l-r');
-          nextOption.classList.add('active-l-r');
-          if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
-          checkIfAllRoundsAreCompleted(roundOptions);
-        }
-        if (roundCounter === roundsNumber) {
-          let puzzle = JSON.parse(localStorage['rss-puzzle']);
-          puzzle.completed[levelIndex as number][0] = true;
-          localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
-          moveToNextLevel(1);
-          roundCounter = 0;
-        }
-        roundCounter += 1;
-        saveNextLevelRoundAfterPassedInLS(roundCounter);
-        turnOnGameChanger(dataBlock);
+        // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
+        selectedOption.classList.remove('active-l-r');
+        nextOption.classList.add('active-l-r');
+        if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
+        checkIfAllRoundsAreCompleted(roundOptions);
       }
+      if (roundCounter === roundsNumber) {
+        const puzzle = JSON.parse(localStorage['rss-puzzle']);
+        puzzle.completed[levelIndex as number][0] = true;
+        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+        moveToNextLevel(1);
+        roundCounter = 0;
+      }
+      roundCounter += 1;
+      saveNextLevelRoundAfterPassedInLS(roundCounter);
+      turnOnGameChanger(dataBlock);
     }
   }
 };

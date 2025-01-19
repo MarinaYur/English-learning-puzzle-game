@@ -1,18 +1,20 @@
-import { levelRoundBlock } from './../pages/main/index';
+import { levelRoundBlock } from '../pages/main/index';
 import Tag from './tags/tags';
 
 import './styles.css';
-import './../pages/results/styles.css';
+import '../pages/results/styles.css';
 import App from '../app';
 import renderTasks, { roundCounter, wordCounter } from './for-main-page/renderTasks';
 import checkPuzzlesOrder from './for-main-page/checkPuzzlesOrder';
-import autoCompleteFunction from './for-main-page/autoComplete';
+import autoCompleteFunction, { notKnow } from './for-main-page/autoComplete';
 import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrChangeDisplay';
 import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
 import deletePuzzlePeaceHighlight from './for-main-page/deletePuzzlePeaceHighlight';
 import { dataFromResponse, levelIndex, roundIndex } from './for-main-page/fillingLevelRoundBlock';
 
 let ifRoundIsFinished = true;
+export let know: string[] = [];
+
 export const ifClickContinueBtn = (
   challengeBlock: HTMLElement,
   dataBlock: HTMLElement,
@@ -33,7 +35,7 @@ export const ifClickContinueBtn = (
     madeBtnDisabledOrChangeDisplay('.auto-complete-btn', false, true);
     addPuzzleDisappearance();
     showPictureInfo(roundCounter, resultBlock, dataBlock);
-
+    notKnow.push('0');
     ifRoundIsFinished = false;
   } else {
     renderTasks(challengeBlock, dataBlock);
@@ -66,6 +68,10 @@ export const createContinueBtn = (container: HTMLElement, challengeBlock: HTMLEl
   continueBtn.setAttribute('disabled', 'disabled');
   container.append(continueBtn);
   continueBtn.addEventListener('click', () => {
+    const string = dataFromResponse.rounds[roundCounter].words[wordCounter - 1].textExample;
+    if (!notKnow.includes(string)) {
+      know.push(string);
+    }
     ifClickContinueBtn(challengeBlock, dataBlock, continueBtn);
     const challHint = document.querySelector('.challenge-hint');
     const showHint = document.querySelector('.chall-translation-hint');
@@ -120,8 +126,7 @@ export const showPictureInfo = async (roundIndex: number, block1: HTMLElement | 
   const pictureName = info.name;
   const pictureAuthor = info.author;
   const pictureYear = info.year;
-  const background =
-    'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/' + info.cutSrc;
+  const background = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${info.cutSrc}`;
   if (block1) {
     block1.style.backgroundImage = `url(${background})`;
     block1.style.backgroundBlendMode = 'normal';
@@ -156,7 +161,8 @@ export const addContinueBtnOnResultPage = (container: HTMLElement) => {
     'res-continue-btn'
   ).createElem();
   container.append(continueBtn);
-  continueBtn.onclick = () => {
+  continueBtn.addEventListener('click', () => {
+    know = [];
     App.renderNewPage('MainPage');
-  };
+  });
 };

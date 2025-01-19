@@ -54,7 +54,7 @@ export const createSelectedList = (n: number, kind: string) => {
 export const levelFormChangeHandler = (parent: htmlElOrNull) => {
   onDropdown('.dropdown-toggle-Level', '.dropdown-select-Level');
   const select: HTMLSelectElement | null = document.querySelector('.dropdown-select-Level');
-  select?.addEventListener('click', async function () {
+  select?.addEventListener('click', async () => {
     const levelOptions = select?.querySelectorAll('.dropdown-option');
     levelOptions?.forEach((option, ind) => {
       option.classList.remove('active-l-r');
@@ -82,7 +82,7 @@ export const levelFormChangeHandler = (parent: htmlElOrNull) => {
 export const roundFormChangeHandler = (parent: htmlElOrNull) => {
   onDropdown('.dropdown-toggle-Round', '.dropdown-select-Round');
   const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
-  roundSelect?.addEventListener('click', async function () {
+  roundSelect?.addEventListener('click', async () => {
     const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
     roundOptions?.forEach((option, ind) => {
       option.classList.remove('active-l-r');
@@ -106,7 +106,7 @@ export const fillingLevelRoundBlock = async (parent: htmlElOrNull, level?: numbe
   dataFromResponse = await response.json();
   const levelForm = createSelectedList(6, 'Level');
   parent?.append(levelForm);
-  let roundForm = createSelectedList(roundsNumber, 'Round');
+  const roundForm = createSelectedList(roundsNumber, 'Round');
   parent?.append(roundForm);
   levelFormChangeHandler(parent);
   roundFormChangeHandler(parent);

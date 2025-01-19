@@ -63,7 +63,7 @@ const fillingChallengeBlock = (parent: HTMLElement, challHint: htmlElOrNull) => 
     }
   });
 };
-export let pronunciation = new Audio();
+export const pronunciation = new Audio();
 
 export function playPronunciation() {
   pronunciationHint.classList.add('chall-pronunciation-hint-on');
@@ -73,7 +73,7 @@ export function playPronunciation() {
   });
 }
 export const hearTranslation = (audio: {}) => {
-  pronunciation.src = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/' + audio;
+  pronunciation.src = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${audio}`;
   pronunciationHint.addEventListener('click', playPronunciation);
 };
 
