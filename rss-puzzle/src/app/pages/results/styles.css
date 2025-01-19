@@ -15,7 +15,15 @@
 .results-table {
   max-height: 60vh;
   overflow: scroll;
-  border: 2px solid black;
+}
+
+.results-table p {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.results-table li {
+  font-size: larger;
 }
 
 #res-continue-btn {

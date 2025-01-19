@@ -1,8 +1,6 @@
 import { htmlElOrNull } from '../types/types';
 
-export const getRSSPuzzleFromLS = () => {
-  return JSON.parse(localStorage['rss-puzzle']);
-};
+export const getRSSPuzzleFromLS = () => JSON.parse(localStorage['rss-puzzle']);
 
 export const getLevelsRoundsComplFromLS = () => {
   if (localStorage['rss-puzzle']) return JSON.parse(localStorage['rss-puzzle']).completed;
@@ -11,9 +9,7 @@ export const getLevelsRoundsComplFromLS = () => {
 
 export const levelsRoundsCompleteness = getLevelsRoundsComplFromLS();
 
-export const getFromLocalStorage = () => {
-  return JSON.parse(localStorage['rss-puzzle']).hints;
-};
+export const getFromLocalStorage = () => JSON.parse(localStorage['rss-puzzle']).hints;
 
 export const isShowAudio = (showPronunciationHintBtn: htmlElOrNull) => {
   if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null)

@@ -30,7 +30,6 @@ const checkPuzzlesOrder = () => {
       challHint?.classList.remove('challenge-hint-invisible');
     }
   });
-
   deletePuzzlePeaceHighlight();
 };
 

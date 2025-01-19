@@ -14,6 +14,6 @@ export const checkIfAllRoundsAreCompleted = (rounds: NodeListOf<Element>) => {
   if (roundsCompletedTrue === 1) {
     level?.classList.add('completed-option');
     level?.classList.remove('active-level');
-    if (levels) levels[levelIndex as number].classList.add(`active-level`);
+    if (levels) levels[levelIndex as number].classList.add('active-level');
   }
 };

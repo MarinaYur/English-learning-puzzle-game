@@ -40,6 +40,7 @@ export default class MainPage extends Page {
     createAutoCompleteBtn(btnsBlock);
     createResultBtn(btnsBlock);
   }
+
   render() {
     this.createContent();
     return this.container;

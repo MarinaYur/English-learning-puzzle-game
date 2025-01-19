@@ -34,7 +34,7 @@ export const saveInLocalStorage = (
 };
 
 export const saveNextLevelRoundAfterPassedInLS = (prop?: number) => {
-  let puzzle = JSON.parse(localStorage['rss-puzzle']);
+  const puzzle = JSON.parse(localStorage['rss-puzzle']);
   puzzle.nextLevelAfterPassed = levelIndex;
   if (prop || prop === 0) puzzle.nextRoundAfterPassed = prop;
   localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));

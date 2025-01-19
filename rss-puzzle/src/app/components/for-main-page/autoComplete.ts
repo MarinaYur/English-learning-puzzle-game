@@ -1,6 +1,9 @@
 import { addBackground } from './addRemoveBackground';
+import { dataFromResponse } from './fillingLevelRoundBlock';
 import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
+import { roundCounter, wordCounter } from './renderTasks';
 
+export let notKnow: string[] = [];
 const autoCompleteFunction = () => {
   const challPronunciationHint: Element | null = document.querySelector('.chall-pronunciation-hint');
   const challHint = document.querySelector('.challenge-hint');
@@ -51,7 +54,9 @@ const autoCompleteFunction = () => {
       madeBtnDisabledOrChangeDisplay('.continue-btn', true, false);
     }
   };
-
+  const string = dataFromResponse.rounds[roundCounter].words[wordCounter - 1].textExample;
+  if (notKnow.includes('0')) notKnow = [];
+  notKnow.push(string);
   insertItemWithDelay(0);
 };
 
