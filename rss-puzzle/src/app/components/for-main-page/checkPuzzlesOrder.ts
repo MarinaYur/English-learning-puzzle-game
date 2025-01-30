@@ -1,8 +1,6 @@
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
-import renderTasks from './renderTasks';
 
 const checkPuzzlesOrder = () => {
-  const resultBlock = document.querySelector('.result-block') as HTMLElement;
   let counterRights = 0;
   const activePuzzlePeaces = document.querySelectorAll('.placed');
   const activePuzzlePeacesLength = activePuzzlePeaces.length;

@@ -1,3 +1,4 @@
+import { listOfElements } from '../types/types';
 import { addBackground } from './addRemoveBackground';
 import { dataFromResponse } from './fillingLevelRoundBlock';
 import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
@@ -11,17 +12,15 @@ const autoCompleteFunction = () => {
   challPronunciationHint?.classList.remove('chall-pronunciation-hint-invisible');
 
   const sentences = document.querySelectorAll('.sentence');
-  let resultBlockWords: NodeListOf<Element> | null = null;
+  let resultBlockWords: listOfElements | null = null;
   let puzzleArray: Element[] = [];
   let activeSentence: Element | null = null;
-  let activeSentenceIndex: number = 0;
 
-  sentences.forEach((sentence, index) => {
+  sentences.forEach((sentence) => {
     if (!sentence.classList.contains('disabled-div') && resultBlockWords === null) {
       resultBlockWords = sentence.querySelectorAll('.puzzle-peace');
       activeSentence = sentence;
       activeSentence.innerHTML = '';
-      activeSentenceIndex = index;
       activeSentence.classList.add('disabled-div');
     }
   });

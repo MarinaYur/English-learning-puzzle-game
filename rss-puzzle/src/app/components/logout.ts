@@ -2,12 +2,12 @@ import Tag from './tags/tags';
 
 const logOut = () => {
   const logOutField = new Tag('div', 'out-field').createElem();
-  const logOut = new Tag('div', 'out').createElem();
-  logOutField.append(logOut);
+  const logOutEL = new Tag('div', 'out').createElem();
+  logOutField.append(logOutEL);
   const logOutSpan = new Tag('span', 'log-out', 'log-out').createElem();
-  logOut.append(logOutSpan);
+  logOutEL.append(logOutSpan);
   const logOutPic = new Tag('div', 'out-pic').createElem();
-  logOut.append(logOutPic);
+  logOutEL.append(logOutPic);
   return logOutField;
 };
 

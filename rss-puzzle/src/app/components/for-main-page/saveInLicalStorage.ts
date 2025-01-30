@@ -1,4 +1,4 @@
-import { levelIndex, roundIndex } from './fillingLevelRoundBlock';
+import { levelIndex } from './fillingLevelRoundBlock';
 
 export const saveInLocalStorage = (
   hintStatus: (boolean | '')[],

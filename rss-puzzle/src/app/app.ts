@@ -16,8 +16,8 @@ export default class App {
     const logOutBtn = document.querySelector('.out');
     logOutBtn?.addEventListener('click', () => {
       localStorage.clear();
-      App.renderNewPage('LoginPage');
-      location.reload();
+      this.renderNewPage('LoginPage');
+      window.location.reload();
     });
   };
 

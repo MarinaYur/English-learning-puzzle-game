@@ -1,25 +1,28 @@
+import { listOfElements } from '../types/types';
 import { background } from './renderTasks';
 
-export const addBackground = () => {
-  const puzzlePeaces = document.querySelectorAll('.puzzle-peace');
-  const puzzlePeaceProtrusions = document.querySelectorAll('.puzzle-peace-protrusion');
+const makeBackgroundImageNone = (item: HTMLElement) => {
+  const el = item;
+  if (!el.parentElement?.classList.contains('disabled-div')) {
+    el.style.backgroundImage = 'none';
+  }
+};
 
-  puzzlePeaces.forEach((item) => ((item as HTMLElement).style.backgroundImage = `url(${background})`));
-  puzzlePeaceProtrusions.forEach((item) => ((item as HTMLElement).style.backgroundImage = `url(${background})`));
+const setBackground = (item: HTMLElement) => {
+  const el = item;
+  el.style.backgroundImage = `url(${background})`;
+};
+
+export const addBackground = () => {
+  const puzzlePeaces: listOfElements = document.querySelectorAll('.puzzle-peace');
+  const puzzlePeaceProtrusions: listOfElements = document.querySelectorAll('.puzzle-peace-protrusion');
+  puzzlePeaces.forEach(setBackground);
+  puzzlePeaceProtrusions.forEach(setBackground);
 };
 
 export const removeBackground = () => {
-  const puzzlePeaces = document.querySelectorAll('.puzzle-peace');
-  const puzzlePeaceProtrusions = document.querySelectorAll('.puzzle-peace-protrusion');
-
-  puzzlePeaces.forEach((item) => {
-    if (!item.parentElement?.classList.contains('disabled-div')) {
-      (item as HTMLElement).style.backgroundImage = 'none';
-    }
-  });
-  puzzlePeaceProtrusions.forEach((item) => {
-    if (!item.parentElement?.parentElement?.classList.contains('disabled-div')) {
-      (item as HTMLElement).style.backgroundImage = 'none';
-    }
-  });
+  const puzzlePeaces: listOfElements = document.querySelectorAll('.puzzle-peace');
+  const puzzlePeaceProtrusions: listOfElements = document.querySelectorAll('.puzzle-peace-protrusion');
+  puzzlePeaces.forEach(makeBackgroundImageNone);
+  puzzlePeaceProtrusions.forEach(makeBackgroundImageNone);
 };

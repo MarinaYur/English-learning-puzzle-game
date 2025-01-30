@@ -1,5 +1,5 @@
 import Page from '../../components/core/templates/page';
-import logOut, { addLogOutBlock } from '../../components/logout';
+import { addLogOutBlock } from '../../components/logout';
 import renderTasks from '../../components/for-main-page/renderTasks';
 import Tag from '../../components/tags/tags';
 
@@ -9,7 +9,6 @@ import { createAutoCompleteBtn, createCheckBtn, createContinueBtn, createResultB
 import fillingChallengeBlock from '../../components/for-main-page/fillingChallengeBlock';
 import { isShowTranslation } from '../../components/for-main-page/getFromLocalStorage';
 import { fillingLevelRoundBlock } from '../../components/for-main-page/fillingLevelRoundBlock';
-import { makeResponse } from '../../components/for-main-page/makeResponse';
 
 export const levelRoundBlock = new Tag('div', 'level-round').createElem();
 

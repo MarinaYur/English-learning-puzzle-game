@@ -1,26 +1,17 @@
-import { doc } from 'prettier/index';
+// import { doc } from 'prettier/index';
 import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
-import { htmlElOrNull } from '../types/types';
+import { htmlElOrNull, listOfElements } from '../types/types';
 import { checkIfAllRoundsAreCompleted } from './checkIfAllRoundsAreCompleted';
 import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
-import {
-  createSelectedList,
-  dataFromResponse,
-  fillingLevelRoundBlock,
-  levelIndex,
-  moveToNextLevel,
-  roundIndex
-} from './fillingLevelRoundBlock';
+import { dataFromResponse, levelIndex, moveToNextLevel } from './fillingLevelRoundBlock';
 import { getRSSPuzzleFromLS } from './getFromLocalStorage';
 import resultBlockDom from './resultBlockDom';
 import { saveNextLevelRoundAfterPassedInLS } from './saveInLicalStorage';
 
 export let roundsNumber: number = 45;
 export let background: string;
-// let levelRoundBlock = document.querySelector('.level-round');
 let challBlock: HTMLElement;
-// let dataBlock: HTMLElement;
 let prevPuzzlePeaceWidth: number = 0;
 let prevPuzzlePeaceHeight: number = 0;
 let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
@@ -40,7 +31,6 @@ export const createPuzzlesPieces = (
   puzzleArray.push(puzzlePeace);
   const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
-  // console.log(window.innerWidth);
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
   if (showBackgroundImageBtn.classList.contains('chall-show-background-image-hint-on')) {
@@ -72,7 +62,6 @@ export const createPuzzlesPieces = (
       .forEach((item) => {
         parent.append(item);
       });
-    // console.log(puzzlePeace.children[0].innerHTML.length);
 
     puzzleArray = [];
   }
@@ -124,8 +113,8 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       const { textExample } = data.rounds[roundCounter].words[wordCounter];
       const { audioExample } = data.rounds[roundCounter].words[wordCounter];
       pronunciationHint.removeEventListener('click', playPronunciation);
-      background = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
-      data.rounds[roundCounter].levelData.imageSrc;
+      const imageSource = data.rounds[roundCounter].levelData.imageSrc;
+      background = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imageSource}`;
       resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
       challengeBlock.innerHTML = textExampleTranslate;
@@ -143,7 +132,7 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       wordCounter += 1;
     } else if (wordCounter >= 10) {
       const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
-      const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
+      const roundOptions: listOfElements | undefined = roundSelect?.querySelectorAll('.dropdown-option');
       if (roundOptions) {
         const selectedOption = roundOptions[roundCounter];
         const nextOption = roundOptions[roundCounter + 1];
