@@ -1,4 +1,5 @@
 import deletePuzzlePeaceHighlight from './deletePuzzlePeaceHighlight';
+import madeBtnDisabledOrChangeDisplay from './madeBtnDisabledOrChangeDisplay';
 
 const checkPuzzlesOrder = () => {
   let counterRights = 0;
@@ -15,14 +16,14 @@ const checkPuzzlesOrder = () => {
     } else {
       item.classList.add('incorrect-puzzle');
     }
-    console.log('counterRights', counterRights, 'activePuzzlePeacesLength', activePuzzlePeacesLength);
     if (counterRights === activePuzzlePeacesLength) {
-      activePuzzlePeaces.forEach((item) => {
-        item.classList.remove('placed');
+      activePuzzlePeaces.forEach((el) => {
+        el.classList.remove('placed');
       });
+      madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, true);
       continueBtn?.removeAttribute('disabled');
       continueBtn.style.display = 'block';
-      item.parentElement ? item.parentElement.classList.add('disabled-div') : 1;
+      if (item.parentElement) item.parentElement.classList.add('disabled-div');
       checkBtn.style.display = 'none';
       const challHint = document.querySelector('.challenge-hint');
       challHint?.classList.remove('challenge-hint-invisible');

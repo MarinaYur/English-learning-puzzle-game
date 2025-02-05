@@ -1,4 +1,3 @@
-// import { doc } from 'prettier/index';
 import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
 import { htmlElOrNull, listOfElements } from '../types/types';
@@ -18,7 +17,6 @@ let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
 let resultBlock: HTMLElement;
 let puzzleArray: Element[] = [];
 export const puzzlePeaceProtrusionBkg: htmlElOrNull = document.querySelector('.puzzle-peace-protrusion-bkg');
-const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
 
 export const createPuzzlesPieces = (
   parent: HTMLElement,
@@ -102,6 +100,24 @@ export const createPuzzlesPieces = (
 export let roundCounter = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextRoundAfterPassed : 0;
 export let wordCounter = 0;
 
+export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number) => {
+  const block = dataBlock;
+  wordCounter = 0;
+  prevPuzzlePeaceWidth = 0;
+  prevPuzzlePeaceHeight = 0;
+  prevPuzzlePeaceProtrusionHeight = -14.2878;
+  puzzleArray = [];
+  if (roundIndex || roundIndex === 0) {
+    roundCounter = roundIndex;
+  }
+  const continueBtn: htmlElOrNull = document.querySelector('.continue-btn');
+  challBlock.innerHTML = '';
+  block.innerHTML = '';
+  if (resultBlock) resultBlock.innerHTML = '';
+  resultBlockDom(resultBlock);
+  ifClickContinueBtn(challBlock, dataBlock, continueBtn);
+};
+
 const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
   challBlock = challengeBlock;
   resultBlock = document.querySelector('.result-block') as HTMLElement;
@@ -117,7 +133,7 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       background = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imageSource}`;
       resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
-      challengeBlock.innerHTML = textExampleTranslate;
+      challBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;
       const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);
       randomTextExample.forEach((item) => {
@@ -143,7 +159,6 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
         puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
         localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
 
-        // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
         selectedOption.classList.remove('active-l-r');
         nextOption.classList.add('active-l-r');
         if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
@@ -161,30 +176,6 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       turnOnGameChanger(dataBlock);
     }
   }
-};
-
-export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number) => {
-  wordCounter = 0;
-  prevPuzzlePeaceWidth = 0;
-  prevPuzzlePeaceHeight = 0;
-  prevPuzzlePeaceProtrusionHeight = -14.2878;
-  puzzleArray = [];
-  // console.log('roundCounter', roundCounter);
-  if (roundIndex || roundIndex === 0) {
-    roundCounter = roundIndex;
-  }
-  // if (roundIndex === -1)
-  // {
-  //   roundCounter = 0;
-  // }
-  console.log('roundCounter', roundCounter);
-  // console.log('roundCounter', roundCounter);
-  const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
-  challBlock.innerHTML = '';
-  dataBlock.innerHTML = '';
-  resultBlock ? (resultBlock.innerHTML = '') : console.log('1');
-  resultBlockDom(resultBlock);
-  ifClickContinueBtn(challBlock, dataBlock, continueBtn);
 };
 
 export default renderTasks;

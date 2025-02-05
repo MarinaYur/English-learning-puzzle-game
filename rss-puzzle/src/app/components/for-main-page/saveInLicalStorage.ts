@@ -27,9 +27,12 @@ export const saveInLocalStorage = (
         nextLevelAfterPassed: 1,
         nextRoundAfterPassed: 0
       };
-  if (hintStatus[0] !== '') userData.hints.isShowAudio = hintStatus[0];
-  if (hintStatus[1] !== '') userData.hints.isShowTranslate = hintStatus[1];
-  if (hintStatus[2] !== '') userData.hints.isShowImage = hintStatus[2];
+
+  const [audioHint, translateHint, imageHint] = hintStatus;
+
+  if (audioHint !== '') userData.hints.isShowAudio = audioHint;
+  if (translateHint !== '') userData.hints.isShowTranslate = translateHint;
+  if (imageHint !== '') userData.hints.isShowImage = imageHint;
   localStorage.setItem('rss-puzzle', JSON.stringify(userData));
 };
 

@@ -10,6 +10,7 @@ import madeBtnDisabledOrChangeDisplay from './for-main-page/madeBtnDisabledOrCha
 import { pronunciationHint, showPronunciationHintBtn } from './for-main-page/fillingChallengeBlock';
 import deletePuzzlePeaceHighlight from './for-main-page/deletePuzzlePeaceHighlight';
 import { dataFromResponse, levelIndex } from './for-main-page/fillingLevelRoundBlock';
+import { htmlElOrNull } from './types/types';
 
 let ifRoundIsFinished = true;
 export const know: string[] = [];
@@ -24,7 +25,7 @@ export const addPuzzleDisappearance = () => {
   });
 };
 
-export const showPictureInfo = async (block1: HTMLElement | null, block2: HTMLElement | null) => {
+export const showPictureInfo = async (block1: htmlElOrNull, block2: htmlElOrNull) => {
   const response = await fetch(
     `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
   );
@@ -107,7 +108,6 @@ export const createContinueBtn = (cont: HTMLElement, challBl: HTMLElement, dataB
     } else {
       challHint?.classList.add('challenge-hint-invisible');
     }
-
     if (showPronunciationHintBtn?.classList.contains('chall-show-pronunciation-hint-active')) {
       pronunciationHint?.classList.remove('chall-pronunciation-hint-invisible');
     } else {

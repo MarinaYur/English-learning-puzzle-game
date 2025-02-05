@@ -39,14 +39,15 @@ export default class ResultsPage extends Page {
     for (let i = 0; i < notKnow.length; i += 1) {
       const li = new Tag('li', '').createElem();
       ul2.append(li);
-      if (notKnow[i] !== '0') li.innerHTML = `-${showPronunciationHintBtn} ${notKnow[i]}`;
+      if (notKnow[i] !== '0') li.innerHTML = `- ${notKnow[i]}`;
     }
     for (let i = 0; i < know.length; i += 1) {
       const li = new Tag('li', '').createElem();
       ul1.append(li);
-      li.innerHTML = `+${showPronunciationHintBtn} ${know[i]}`;
+      li.innerHTML = `+ ${know[i]}`;
     }
     addContinueBtnOnResultPage(resultsContainer);
+    console.log('from result', notKnow);
   }
 
   render() {
