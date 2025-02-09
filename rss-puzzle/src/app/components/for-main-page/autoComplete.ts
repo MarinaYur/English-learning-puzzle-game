@@ -39,6 +39,7 @@ const autoCompleteFunction = () => {
   });
 
   const insertItemWithDelay = (index: number) => {
+    madeBtnDisabledOrChangeDisplay('.auto-complete-btn', true, true);
     if (index < puzzleArray.length) {
       const item = puzzleArray[index] as HTMLElement;
       item.classList.remove('placed');

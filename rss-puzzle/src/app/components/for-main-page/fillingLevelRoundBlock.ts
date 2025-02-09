@@ -71,9 +71,15 @@ export const roundFormChangeHandler = (flag?: boolean) => {
 export const changeLevel = async (parent: htmlElOrNull, levelOptions: listOfElements, flag?: boolean) => {
   levelOptions?.forEach((option, ind) => {
     option.classList.remove('active-l-r');
+    if (flag && levelIndex === 6 && ind === 0) {
+      levelIndex = 0;
+      option.classList.add('active-l-r');
+    }
     if (flag && ind === 0) {
       levelIndex = levelIndex + 1;
-      if (ind + 1 === levelIndex) option.classList.add('active-l-r');
+    }
+    if (flag && ind + 1 === levelIndex) {
+      option.classList.add('active-l-r');
     } else if (option === selectedOption) {
       levelIndex = ind + 1;
       option.classList.add('active-l-r');
@@ -90,7 +96,7 @@ export const changeLevel = async (parent: htmlElOrNull, levelOptions: listOfElem
   parent?.append(roundForm);
   const dataBlock: HTMLElement | null = document.querySelector('.data-block');
   roundFormChangeHandler(true);
-  console.log('dataBlock', dataBlock);
+  roundIndex = 0;
   if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
 };
 export const levelFormChangeHandler = (parent: htmlElOrNull) => {
