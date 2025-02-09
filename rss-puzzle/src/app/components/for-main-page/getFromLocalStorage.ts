@@ -3,8 +3,10 @@ import { htmlElOrNull } from '../types/types';
 export const getRSSPuzzleFromLS = () => JSON.parse(localStorage['rss-puzzle']);
 
 export const getLevelsRoundsComplFromLS = () => {
-  if (localStorage['rss-puzzle']) return JSON.parse(localStorage['rss-puzzle']).completed;
-  // else console.log("No RSS");
+  if (localStorage['rss-puzzle']) {
+    return JSON.parse(localStorage['rss-puzzle']).completed;
+  }
+  return null;
 };
 
 export const levelsRoundsCompleteness = getLevelsRoundsComplFromLS();
@@ -12,9 +14,11 @@ export const levelsRoundsCompleteness = getLevelsRoundsComplFromLS();
 export const getFromLocalStorage = () => JSON.parse(localStorage['rss-puzzle']).hints;
 
 export const isShowAudio = (showPronunciationHintBtn: htmlElOrNull) => {
-  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null)
-    if (!getFromLocalStorage().isShowAudio)
+  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null) {
+    if (!getFromLocalStorage().isShowAudio) {
       showPronunciationHintBtn?.classList.remove('chall-show-pronunciation-hint-active');
+    }
+  }
 };
 
 export const isShowTranslate = (showTranslationHint: htmlElOrNull) => {
@@ -24,17 +28,23 @@ export const isShowTranslate = (showTranslationHint: htmlElOrNull) => {
 };
 
 export const isShowImage = (showBackgroundImageBtn: htmlElOrNull) => {
-  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null)
-    if (!getFromLocalStorage().isShowImage)
+  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null) {
+    if (!getFromLocalStorage().isShowImage) {
       showBackgroundImageBtn?.classList.remove('chall-show-background-image-hint-on');
+    }
+  }
 };
 
 export const isShowTranslation = (challHint: htmlElOrNull) => {
-  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null)
+  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null) {
     if (!getFromLocalStorage().isShowTranslate) challHint?.classList.add('challenge-hint-invisible');
+  }
 };
 
 export const isPlayPronunciation = (pronunciationHint: htmlElOrNull) => {
-  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null)
-    if (!getFromLocalStorage().isShowAudio) pronunciationHint?.classList.add('chall-pronunciation-hint-invisible');
+  if (localStorage.length !== 0 && localStorage.getItem('rss-puzzle') !== null) {
+    if (!getFromLocalStorage().isShowAudio) {
+      pronunciationHint?.classList.add('chall-pronunciation-hint-invisible');
+    }
+  }
 };

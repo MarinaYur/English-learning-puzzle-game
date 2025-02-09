@@ -1,9 +1,10 @@
+import { listOfElements } from '../types/types';
 import { levelIndex } from './fillingLevelRoundBlock';
 
 export const levelSelect = document.querySelector('.dropdown-select-Level');
 export const levels = levelSelect?.querySelectorAll('.dropdown-option');
 
-export const checkIfAllRoundsAreCompleted = (rounds: NodeListOf<Element>) => {
+export const checkIfAllRoundsAreCompleted = (rounds: listOfElements) => {
   let roundsCompletedTrue = 1;
   const level = document.querySelector('active-level');
   rounds.forEach((round) => {

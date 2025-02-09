@@ -1,5 +1,5 @@
 import Page from '../../components/core/templates/page';
-import logOut, { addLogOutBlock } from '../../components/logout';
+import { addLogOutBlock } from '../../components/logout';
 import renderTasks from '../../components/for-main-page/renderTasks';
 import Tag from '../../components/tags/tags';
 
@@ -9,7 +9,7 @@ import { createAutoCompleteBtn, createCheckBtn, createContinueBtn, createResultB
 import fillingChallengeBlock from '../../components/for-main-page/fillingChallengeBlock';
 import { isShowTranslation } from '../../components/for-main-page/getFromLocalStorage';
 import { fillingLevelRoundBlock } from '../../components/for-main-page/fillingLevelRoundBlock';
-import { makeResponse } from '../../components/for-main-page/makeResponse';
+import { notKnow } from '../../components/for-main-page/autoComplete';
 
 export const levelRoundBlock = new Tag('div', 'level-round').createElem();
 
@@ -39,6 +39,7 @@ export default class MainPage extends Page {
     createContinueBtn(btnsBlock, challHint, dataBlock);
     createAutoCompleteBtn(btnsBlock);
     createResultBtn(btnsBlock);
+    notKnow.splice(0, notKnow.length);
   }
 
   render() {

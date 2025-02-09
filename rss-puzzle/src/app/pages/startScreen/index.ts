@@ -1,6 +1,6 @@
 import createStartBtn from '../../components/buttons';
 import Page from '../../components/core/templates/page';
-import logOut, { addLogOutBlock } from '../../components/logout';
+import { addLogOutBlock } from '../../components/logout';
 import Tag from '../../components/tags/tags';
 
 import './styles.css';

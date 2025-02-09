@@ -1,4 +1,3 @@
-import { runInNewContext } from 'vm';
 import Page from '../../components/core/templates/page';
 import Tag from '../../components/tags/tags';
 import checkInput from '../../components/validation';
@@ -89,12 +88,12 @@ export default class LoginPage extends Page {
           input.style.border = '2px solid black';
           validResult[index] = false;
         }
-        this.activeSubmitBtn(validResult, loginButton as HTMLButtonElement, input.value);
+        this.activeSubmitBtn(validResult, loginButton as HTMLButtonElement);
       });
     });
   }
 
-  activeSubmitBtn(res: boolean[], btn: HTMLButtonElement, value: string): void {
+  activeSubmitBtn(res: boolean[], btn: HTMLButtonElement): void {
     if (!res.includes(false)) {
       btn.removeAttribute('disabled');
     } else {

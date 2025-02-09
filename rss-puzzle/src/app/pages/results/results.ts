@@ -1,11 +1,10 @@
 import { notKnow } from '../../components/for-main-page/autoComplete';
-import { addContinueBtnOnResultPage, createContinueBtn, know, showPictureInfo } from '../../components/buttons';
+import { addContinueBtnOnResultPage, know, showPictureInfo } from '../../components/buttons';
 import Page from '../../components/core/templates/page';
-import { roundIndex } from '../../components/for-main-page/fillingLevelRoundBlock';
-import { roundCounter } from '../../components/for-main-page/renderTasks';
 import { addLogOutBlock } from '../../components/logout';
 import Tag from '../../components/tags/tags';
 import './styles.css';
+import { showPronunciationHintBtn } from '../../components/for-main-page/fillingChallengeBlock';
 
 export default class ResultsPage extends Page {
   async createContent() {
@@ -20,7 +19,7 @@ export default class ResultsPage extends Page {
     pictureBlock.append(infoBlock);
     const resultsTable = new Tag('div', 'results-table').createElem();
     resultsContainer.append(resultsTable);
-    showPictureInfo(roundCounter, image, infoBlock);
+    showPictureInfo(image, infoBlock);
     const ul = new Tag('ul', '').createElem();
     resultsTable.append(ul);
 
@@ -37,17 +36,18 @@ export default class ResultsPage extends Page {
     li1Know.append(ul1);
     ul.append(li1Know);
     ul.append(li2NotKnow);
-    for (let i = 0; i < notKnow.length; i++) {
+    for (let i = 0; i < notKnow.length; i += 1) {
       const li = new Tag('li', '').createElem();
       ul2.append(li);
-      if (notKnow[i] !== '0') li.innerHTML = '-' + ` ${notKnow[i]}`;
+      if (notKnow[i] !== '0') li.innerHTML = `- ${notKnow[i]}`;
     }
-    for (let i = 0; i < know.length; i++) {
+    for (let i = 0; i < know.length; i += 1) {
       const li = new Tag('li', '').createElem();
       ul1.append(li);
-      li.innerHTML = '+' + ` ${know[i]}`;
+      li.innerHTML = `+ ${know[i]}`;
     }
     addContinueBtnOnResultPage(resultsContainer);
+    console.log('from result', notKnow);
   }
 
   render() {

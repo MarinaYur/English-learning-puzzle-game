@@ -72,7 +72,7 @@ export function playPronunciation() {
     pronunciationHint.classList.remove('chall-pronunciation-hint-on');
   });
 }
-export const hearTranslation = (audio: {}) => {
+export const hearTranslation = (audio: string) => {
   pronunciation.src = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${audio}`;
   pronunciationHint.addEventListener('click', playPronunciation);
 };

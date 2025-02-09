@@ -1,33 +1,30 @@
-import { doc } from 'prettier/index';
+import { levelRoundBlock } from './../../pages/main/index';
 import { ifClickContinueBtn } from '../buttons';
 import Tag from '../tags/tags';
-import { htmlElOrNull } from '../types/types';
-import { checkIfAllRoundsAreCompleted } from './checkIfAllRoundsAreCompleted';
+import { htmlElOrNull, listOfElements } from '../types/types';
+import { checkIfAllRoundsAreCompleted, levelSelect } from './checkIfAllRoundsAreCompleted';
 import { hearTranslation, playPronunciation, pronunciationHint, showBackgroundImageBtn } from './fillingChallengeBlock';
 import {
+  changeLevel,
   createSelectedList,
   dataFromResponse,
-  fillingLevelRoundBlock,
   levelIndex,
   moveToNextLevel,
-  roundIndex
+  roundsNumber
 } from './fillingLevelRoundBlock';
 import { getRSSPuzzleFromLS } from './getFromLocalStorage';
 import resultBlockDom from './resultBlockDom';
 import { saveNextLevelRoundAfterPassedInLS } from './saveInLicalStorage';
 
-export let roundsNumber: number = 45;
+// export let roundsNumber: number = getRSSPuzzleFromLS().completed[levelIndex][0];
 export let background: string;
-// let levelRoundBlock = document.querySelector('.level-round');
 let challBlock: HTMLElement;
-// let dataBlock: HTMLElement;
 let prevPuzzlePeaceWidth: number = 0;
 let prevPuzzlePeaceHeight: number = 0;
 let prevPuzzlePeaceProtrusionHeight: number = -14.2878;
 let resultBlock: HTMLElement;
 let puzzleArray: Element[] = [];
 export const puzzlePeaceProtrusionBkg: htmlElOrNull = document.querySelector('.puzzle-peace-protrusion-bkg');
-const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
 
 export const createPuzzlesPieces = (
   parent: HTMLElement,
@@ -40,7 +37,6 @@ export const createPuzzlesPieces = (
   puzzleArray.push(puzzlePeace);
   const checkBtn = document.querySelector('.check-btn') as HTMLElement;
   const parentWidth = parent.offsetWidth;
-  // console.log(window.innerWidth);
   const width = (text[0].length / length) * parentWidth;
   puzzlePeace.style.width = `${width}px`;
   if (showBackgroundImageBtn.classList.contains('chall-show-background-image-hint-on')) {
@@ -49,7 +45,6 @@ export const createPuzzlesPieces = (
   puzzlePeace.style.backgroundPosition = `-${prevPuzzlePeaceWidth}px ${prevPuzzlePeaceHeight}px`;
   puzzlePeace.style.backgroundSize = '907.188px 510.281px';
   prevPuzzlePeaceWidth += width;
-
   const p = new Tag('p', 'puzzle-word').createElem();
   p.innerHTML = text[0];
   puzzlePeace.append(p);
@@ -72,7 +67,6 @@ export const createPuzzlesPieces = (
       .forEach((item) => {
         parent.append(item);
       });
-    // console.log(puzzlePeace.children[0].innerHTML.length);
 
     puzzleArray = [];
   }
@@ -81,9 +75,7 @@ export const createPuzzlesPieces = (
     const puzzlePeaceAperture = new Tag('div', 'puzzle-peace-aperture').createElem();
     puzzlePeace.append(puzzlePeaceAperture);
   }
-
   const sentences = document.querySelectorAll('.sentence');
-
   puzzlePeace?.addEventListener('click', (e: Event) => {
     const target = e.target as HTMLLIElement;
     target.classList.remove('correct-puzzle');
@@ -113,22 +105,39 @@ export const createPuzzlesPieces = (
 export let roundCounter = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextRoundAfterPassed : 0;
 export let wordCounter = 0;
 
+export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number, level?: number) => {
+  const block = dataBlock;
+  wordCounter = 0;
+  prevPuzzlePeaceWidth = 0;
+  prevPuzzlePeaceHeight = 0;
+  prevPuzzlePeaceProtrusionHeight = -14.2878;
+  puzzleArray = [];
+  if (roundIndex || roundIndex === 0) {
+    roundCounter = roundIndex;
+  }
+  const continueBtn: htmlElOrNull = document.querySelector('.continue-btn');
+  challBlock.innerHTML = '';
+  block.innerHTML = '';
+  if (resultBlock) resultBlock.innerHTML = '';
+  resultBlockDom(resultBlock);
+  ifClickContinueBtn(challBlock, dataBlock, continueBtn);
+};
+
 const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) => {
   challBlock = challengeBlock;
   resultBlock = document.querySelector('.result-block') as HTMLElement;
   const data = await dataFromResponse;
-  roundsNumber = data.roundsCount;
   if (roundCounter < roundsNumber) {
     if (wordCounter < 10) {
       const { textExampleTranslate } = data.rounds[roundCounter].words[wordCounter];
       const { textExample } = data.rounds[roundCounter].words[wordCounter];
       const { audioExample } = data.rounds[roundCounter].words[wordCounter];
       pronunciationHint.removeEventListener('click', playPronunciation);
-      background = 'https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/';
-      data.rounds[roundCounter].levelData.imageSrc;
+      const imageSource = data.rounds[roundCounter].levelData.imageSrc;
+      background = `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/${imageSource}`;
       resultBlock.style.backgroundImage = `url(${background})`;
       hearTranslation(audioExample);
-      challengeBlock.innerHTML = textExampleTranslate;
+      challBlock.innerHTML = textExampleTranslate;
       const numberOfTaskLetters = textExample.split(' ').join('').length;
       const randomTextExample = textExample.split(' ').map((item: string, ind: number) => [item, ind]);
       randomTextExample.forEach((item) => {
@@ -142,60 +151,67 @@ const renderTasks = async (challengeBlock: HTMLElement, dataBlock: HTMLElement) 
       });
       wordCounter += 1;
     } else if (wordCounter >= 10) {
-      const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
-      const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
-      if (roundOptions) {
-        const selectedOption = roundOptions[roundCounter];
-        const nextOption = roundOptions[roundCounter + 1];
-        const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
-        selectedOption.classList.add('completed-option');
-
-        const puzzle = JSON.parse(localStorage['rss-puzzle']);
-        puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
-        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
-
-        // localStorage['rss-puzzle'].completed.'levelIndex'.push(roundCounter);
-        selectedOption.classList.remove('active-l-r');
-        nextOption.classList.add('active-l-r');
-        if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
-        checkIfAllRoundsAreCompleted(roundOptions);
+      console.log('roundcounter', roundCounter);
+      if (roundCounter + 1 !== roundsNumber) {
+        console.log('roundCounter', roundCounter);
+        const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
+        const roundOptions: listOfElements | undefined = roundSelect?.querySelectorAll('.dropdown-option');
+        if (roundOptions) {
+          const selectedOption = roundOptions[roundCounter];
+          console.log(roundCounter);
+          const nextOption = roundOptions[roundCounter + 1];
+          const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
+          selectedOption.classList.add('completed-option');
+          const puzzle = JSON.parse(localStorage['rss-puzzle']);
+          puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
+          localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+          selectedOption.classList.remove('active-l-r');
+          nextOption.classList.add('active-l-r');
+          if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
+          checkIfAllRoundsAreCompleted(roundOptions);
+        }
+        roundCounter += 1;
+        saveNextLevelRoundAfterPassedInLS(roundCounter);
+        turnOnGameChanger(dataBlock);
       }
-      if (roundCounter === roundsNumber) {
-        const puzzle = JSON.parse(localStorage['rss-puzzle']);
-        puzzle.completed[levelIndex as number][0] = true;
-        localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
-        moveToNextLevel(1);
+
+      if (roundCounter + 1 === roundsNumber) {
+        if (levelIndex < 7) {
+          const levelRoundBlock: htmlElOrNull = document.querySelector('.level-round');
+          const levelSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Level');
+          const levelOptions: listOfElements | undefined = levelSelect?.querySelectorAll('.dropdown-option');
+          if (levelOptions) {
+            const selectedOption = levelOptions[levelIndex - 1];
+            const nextOption = levelIndex !== 6 ? levelOptions[levelIndex] : levelOptions[0];
+            const dropdownToggle = document.querySelector('.dropdown-toggle-Level');
+            selectedOption.classList.add('completed-option');
+            selectedOption.classList.remove('active-l-r');
+            nextOption.classList.add('active-l-r');
+            if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
+            const puzzle = JSON.parse(localStorage['rss-puzzle']);
+            puzzle.completed[levelIndex as number][(roundCounter as number) + 1] = true;
+            localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
+            changeLevel(levelRoundBlock, levelOptions, true);
+          }
+          const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
+          const roundOptions: listOfElements | undefined = roundSelect?.querySelectorAll('.dropdown-option');
+          if (roundOptions) {
+            const selectedOption = roundOptions[roundCounter];
+            const nextOption = roundOptions[0];
+            const dropdownToggle = document.querySelector('.dropdown-toggle-Round');
+            selectedOption.classList.add('completed-option');
+            selectedOption.classList.remove('active-l-r');
+            nextOption.classList.add('active-l-r');
+            if (dropdownToggle) dropdownToggle.innerHTML = nextOption.innerHTML;
+          }
+        }
+        console.log('level finished');
         roundCounter = 0;
+        if (levelIndex < 6) saveNextLevelRoundAfterPassedInLS(roundCounter, levelIndex);
+        if (levelIndex === 6) saveNextLevelRoundAfterPassedInLS(roundCounter, 0);
       }
-      roundCounter += 1;
-      saveNextLevelRoundAfterPassedInLS(roundCounter);
-      turnOnGameChanger(dataBlock);
     }
   }
-};
-
-export const turnOnGameChanger = (dataBlock: HTMLElement, roundIndex?: number) => {
-  wordCounter = 0;
-  prevPuzzlePeaceWidth = 0;
-  prevPuzzlePeaceHeight = 0;
-  prevPuzzlePeaceProtrusionHeight = -14.2878;
-  puzzleArray = [];
-  // console.log('roundCounter', roundCounter);
-  if (roundIndex || roundIndex === 0) {
-    roundCounter = roundIndex;
-  }
-  // if (roundIndex === -1)
-  // {
-  //   roundCounter = 0;
-  // }
-  console.log('roundCounter', roundCounter);
-  // console.log('roundCounter', roundCounter);
-  const continueBtn: HTMLElement | null = document.querySelector('.continue-btn');
-  challBlock.innerHTML = '';
-  dataBlock.innerHTML = '';
-  resultBlock ? (resultBlock.innerHTML = '') : console.log('1');
-  resultBlockDom(resultBlock);
-  ifClickContinueBtn(challBlock, dataBlock, continueBtn);
 };
 
 export default renderTasks;
