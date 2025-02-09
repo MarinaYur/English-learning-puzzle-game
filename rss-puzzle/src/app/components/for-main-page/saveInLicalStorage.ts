@@ -17,12 +17,12 @@ export const saveInLocalStorage = (
           isShowImage: true
         },
         completed: {
-          1: [false],
-          2: [false],
-          3: [false],
-          4: [false],
-          5: [false],
-          6: [false]
+          1: [45],
+          2: [41],
+          3: [40],
+          4: [29],
+          5: [29],
+          6: [25]
         },
         nextLevelAfterPassed: 1,
         nextRoundAfterPassed: 0
@@ -38,7 +38,7 @@ export const saveInLocalStorage = (
 
 export const saveNextLevelRoundAfterPassedInLS = (prop?: number, level?: number) => {
   const puzzle = JSON.parse(localStorage['rss-puzzle']);
-  if (level) puzzle.nextLevelAfterPassed = levelIndex + 1;
+  if (level) puzzle.nextLevelAfterPassed = levelIndex;
   if (prop || prop === 0) puzzle.nextRoundAfterPassed = prop;
   localStorage.setItem('rss-puzzle', JSON.stringify(puzzle));
 };

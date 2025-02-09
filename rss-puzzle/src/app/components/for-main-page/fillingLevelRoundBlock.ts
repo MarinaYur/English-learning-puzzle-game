@@ -1,14 +1,16 @@
+import { listOfElements } from './../types/types';
 import { levelRoundBlock } from '../../pages/main/index';
 import Tag from '../tags/tags';
 import { htmlElOrNull } from '../types/types';
 import { getLevelsRoundsComplFromLS, getRSSPuzzleFromLS, levelsRoundsCompleteness } from './getFromLocalStorage';
 import { ResponseData } from './interfaces/ResponseData';
 import { onDropdown, selectedOption } from './onDropdown';
-import { roundsNumber, turnOnGameChanger } from './renderTasks';
+import { turnOnGameChanger } from './renderTasks';
 
 export let dataFromResponse: ResponseData;
 export let levelIndex: number = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextLevelAfterPassed : 1;
 export let roundIndex: number = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().nextRoundAfterPassed : 0;
+export let roundsNumber: number = localStorage['rss-puzzle'] ? getRSSPuzzleFromLS().completed[levelIndex][0] : 45;
 
 export const createSelectedList = (n: number, kind: string) => {
   const dropdown = new Tag('div', `dropdown dropdown-${kind}`).createElem();
@@ -46,14 +48,17 @@ export const createSelectedList = (n: number, kind: string) => {
   return dropdown;
 };
 
-export const roundFormChangeHandler = () => {
+export const roundFormChangeHandler = (flag?: boolean) => {
   onDropdown('.dropdown-toggle-Round', '.dropdown-select-Round');
   const roundSelect: HTMLSelectElement | null = document.querySelector('.dropdown-select-Round');
   roundSelect?.addEventListener('click', async () => {
     const roundOptions = roundSelect?.querySelectorAll('.dropdown-option');
     roundOptions?.forEach((option, ind) => {
       option.classList.remove('active-l-r');
-      if (option === selectedOption) {
+      if (flag && ind === 0) {
+        roundIndex = 0;
+        option.classList.add('active-l-r');
+      } else if (option === selectedOption) {
         roundIndex = ind;
         option.classList.add('active-l-r');
       }
@@ -62,30 +67,38 @@ export const roundFormChangeHandler = () => {
     if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
   });
 };
+
+export const changeLevel = async (parent: htmlElOrNull, levelOptions: listOfElements, flag?: boolean) => {
+  levelOptions?.forEach((option, ind) => {
+    option.classList.remove('active-l-r');
+    if (flag && ind === 0) {
+      levelIndex = levelIndex + 1;
+      if (ind + 1 === levelIndex) option.classList.add('active-l-r');
+    } else if (option === selectedOption) {
+      levelIndex = ind + 1;
+      option.classList.add('active-l-r');
+    }
+  });
+  console.log('levelIndex from changeLevel', levelIndex);
+  const response = await fetch(
+    `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
+  );
+  dataFromResponse = await response.json();
+  parent?.lastElementChild?.remove();
+  roundsNumber = getRSSPuzzleFromLS().completed[levelIndex][0];
+  const roundForm = createSelectedList(roundsNumber, 'Round');
+  parent?.append(roundForm);
+  const dataBlock: HTMLElement | null = document.querySelector('.data-block');
+  roundFormChangeHandler(true);
+  console.log('dataBlock', dataBlock);
+  if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
+};
 export const levelFormChangeHandler = (parent: htmlElOrNull) => {
   onDropdown('.dropdown-toggle-Level', '.dropdown-select-Level');
   const select: HTMLSelectElement | null = document.querySelector('.dropdown-select-Level');
   select?.addEventListener('click', async () => {
-    const levelOptions = select?.querySelectorAll('.dropdown-option');
-    levelOptions?.forEach((option, ind) => {
-      option.classList.remove('active-l-r');
-      if (option === selectedOption) {
-        levelIndex = ind + 1;
-        option.classList.add('active-l-r');
-      }
-    });
-
-    const response = await fetch(
-      `https://raw.githubusercontent.com/MarinaYur/rss-puzzle-data/main/data/wordCollectionLevel${levelIndex}.json`
-    );
-    dataFromResponse = await response.json();
-    const roundsNumberfromFilling = dataFromResponse.roundsCount;
-    parent?.lastElementChild?.remove();
-    const roundForm = createSelectedList(roundsNumberfromFilling, 'Round');
-    parent?.append(roundForm);
-    const dataBlock: HTMLElement | null = document.querySelector('.data-block');
-    roundFormChangeHandler();
-    if (dataBlock) turnOnGameChanger(dataBlock, roundIndex);
+    const levelOptions: listOfElements = select?.querySelectorAll('.dropdown-option');
+    changeLevel(parent, levelOptions);
   });
 };
 
